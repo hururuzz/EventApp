@@ -1,0 +1,1 @@
+var app = angular.module('EventApp', ['ui.bootstrap']);

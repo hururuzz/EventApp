@@ -1,0 +1,83 @@
+<% include layout %>
+<script src="/Scripts/App/AngularControllers/homeController.js"></script>
+
+<div ng-controller="HomeController" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+    <p>
+        <div class="form-group">
+            <input type="text" ng-model="searchKeyword" class="input-sm" placeholder="Type keywords here" autofocus>
+            <button class="btn-xs">Search</button>
+            <button class="btn-xs">+</button>
+        </div>
+    </p>
+
+    <hr>
+    <div>
+        <h3>Events Searched</h3>
+        <table class="table table-striped">
+            <tr>
+                <td colspan="2">
+                    <h4>Beer Party at CSUF!!</h4>
+                    <button class="btn-xs">Join</button>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Date/Time</b></td>
+                <td>10/31/2016 6:00PM</td>
+            </tr>
+            <tr>
+                <td><b>Location</b></td>
+                <td>Irish Pub
+                    <button class="btn-xs">Map</button>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Description</b></td>
+                <td>Come and enjoy!</td>
+            </tr>
+            <tr>
+                <td><b>Event Host</b></td>
+                <td>Peter</td>
+            </tr>
+            <tr>
+                <td><b>Participants</b></td>
+                <td>12</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div>
+        <h3>Recommended Events</h3>
+        <table class="table table-striped">
+            <tr>
+                <td colspan="2">
+                    <h4>Soccer Game at CSUF soccer field</h4>
+                    <button class="btn-xs">Join</button>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Date/Time</b></td>
+                <td>8/31/2016 7:00PM</td>
+            </tr>
+            <tr>
+                <td><b>Location</b></td>
+                <td>CSUF soccer Field
+                    <button class="btn-xs">Map</button>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Description</b></td>
+                <td>Come and enjoy playing soccer!</td>
+            </tr>
+            <tr>
+                <td><b>Event Host</b></td>
+                <td>James</td>
+            </tr>
+            <tr>
+                <td><b>Participants</b></td>
+                <td>7</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+</div>
+
