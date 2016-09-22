@@ -26,6 +26,14 @@ app.get('/', function (req, res) {
   res.render('index.ejs', {layout: 'layout.ejs'});
 });
 
+app.get('/signin', function (req, res) {
+  res.render('signin.ejs', {layout: 'layout.ejs'});
+});
+
+app.get('/myaccount', function (req, res) {
+  res.render('myAccount.ejs', {layout: 'layout.ejs'});
+});
+
 app.listen(8000, function(){
     console.log('The server is listening port 8000');
 });
