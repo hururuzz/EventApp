@@ -2,5 +2,19 @@
 <script src="/Scripts/App/AngularControllers/signInController.js"></script>
 
 <div ng-controller="SignInController" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
-    
+    <div>
+    <h3>Sign In</h3>
+        <table class="table table-striped">
+            <tr>
+                <td><b>Username</b></td>
+                <td><input type="text" class="input-xs" ng-model="username"></td>
+            </tr>
+            <tr>
+                <td><b>Password</b></td>
+                <td><input type="password" class="input-xs" ng-model="password"></td>
+            </tr>
+        </table>
+        <input type="button" class="btn-xs" value="Sign In" ng-click="SignIn(username, password)">
+        <a href="/Views/forgotPassword"><input type="button" class="btn-xs" value="Forgot Password?"></a>  
+    <div>
 </div>

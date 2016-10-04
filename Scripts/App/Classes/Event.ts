@@ -1,13 +1,13 @@
 namespace EventApp{
     class Event {
-        eventId: number;
-        eventName: string;
-        date: Date;
-        location: string;
-        address: string;
-        description: string;
-        eventHost: Array<User>;
-        participants: number;
+        private eventId: number;
+        private eventName: string;
+        private date: Date;
+        private location: string;
+        private address: string;
+        private description: string;
+        private eventHost: Array<User>;
+        private participants: number;
     }
 
     function SearchEvents(){

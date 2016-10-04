@@ -1,14 +1,10 @@
-namespace EventApp{
-    interface IAccount {
-        username: string;
-        password: string;
+export interface IAccount {
+    username: string;
+    password: string;
     }
 
-    function SignUp(){
-
+    function SignUp(username, password){
     }
 
-    function SignIn(){
-
+    function SignIn(username, password){
     }
-}
