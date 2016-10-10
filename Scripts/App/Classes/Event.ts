@@ -1,5 +1,4 @@
-namespace EventApp{
-    class Event {
+class Event {
         private eventId: number;
         private eventName: string;
         private date: Date;

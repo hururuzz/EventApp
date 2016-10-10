@@ -17,5 +17,13 @@
     "request": "^2.75.0"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hururuzz/EventApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hururuzz/EventApp/issues"
+  },
+  "homepage": "https://github.com/hururuzz/EventApp#readme",
   "description": ""
 }

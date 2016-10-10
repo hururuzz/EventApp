@@ -1,17 +1,18 @@
-namespace EventApp{
-    class GoogleAccount implements IAccount {
+import {IAccount} from "./IAccount";
 
-    }
+class GoogleAccount implements IAccount {
+    username: string;
+    password: string;
+}
 
-    function SignUp(){
+function SignUp(){
 
-    }
+}
 
-    function SignIn(){
-        
-    }
+function SignIn(){
+    
+}
 
-    function IntegrateAccount(){
+function IntegrateAccount(){
 
-    }
 }

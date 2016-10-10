@@ -1,10 +1,9 @@
 export interface IAccount {
-    username: string;
+    userName: string;
+    email: string;
     password: string;
-    }
+    confirmPassword: string;
 
-    function SignUp(username, password){
-    }
-
-    function SignIn(username, password){
-    }
+    SignUp(userName, email, password, confirmPassword);
+    SignIn(email, password);
+}

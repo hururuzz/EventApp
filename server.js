@@ -15,9 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var dbUrl = 'http://localhost:5984/';
 var db = 'eventapp/';
 
+// command for creating CouchDB databse
+// http://localhost:5984/evetapp
 
 // Load script files when http server starts
 app.use('/scripts', express.static('scripts', {index: false}));
+app.use('/CSS', express.static('CSS', {index: false}));
 
 app.set('view engine', 'ejs');
 app.set('Views', __dirname + '/Views');
@@ -30,9 +33,40 @@ app.get('/signin', function (req, res) {
   res.render('signin.ejs', {layout: 'layout.ejs'});
 });
 
+app.get('/signup', function (req, res) {
+  res.render('signup.ejs', {layout: 'layout.ejs'});
+});
+
 app.get('/myaccount', function (req, res) {
   res.render('myAccount.ejs', {layout: 'layout.ejs'});
 });
+
+
+app.post('/signup', function(req, res){
+  var id = Date.now();
+
+  request.put({
+    url: dbUrl + db + id,
+    header: 'Content-Type: application/json',
+    body:{
+      userName: req.body.userName,
+      email: req.body.email,
+      password: req.body.password
+    },
+    json: true
+  }, function(error, response, body){
+    if(error){
+      return console.error(error);
+    }
+    else{
+      console.log('The account has been successfully created.', body);
+      res.end();
+    }
+  });
+
+});
+
+
 
 app.listen(8000, function(){
     console.log('The server is listening port 8000');

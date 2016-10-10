@@ -1,0 +1,35 @@
+<% include layout %>
+<!--<script src="/Scripts/App/AngularControllers/signUpController.js"></script>-->
+<script src="/Scripts/App/Classes/AppAccount.js"></script>
+<script>
+var AppAccount = new AppAccount();
+</script>
+
+<div ng-controller="SignUpController as c" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+    <div>
+    <h3>Sign In</h3>
+        <table class="table table-striped">
+            <tr>
+                <td><b>Username</b></td>
+                <td><input type="text" class="input-xs" ng-model="AppAccount.userName"></td>
+                <td ng-show="IsUserNameFailure">{{userNameFailureMessage}}</td>
+            </tr>
+            <tr>
+                <td><b>Email</b></td>
+                <td><input type="text" class="input-xs" ng-model="AppAccount.email"></td>
+                <td ng-show="IsEmailFailure">{{emailFailureMessage}}</td>
+            </tr>
+            <tr>
+                <td><b>Password</b></td>
+                <td><input type="password" class="input-xs" ng-model="AppAccount.password"></td>
+                <td ng-show="IsPasswordFailure">{{passwordFailureMessage}}</td>
+            </tr>
+            <tr>
+                <td><b>Confirm Password</b></td>
+                <td><input type="password" class="input-xs" ng-model="AppAccount.confirmPassword"></td>
+                <td ng-show="IsConfirmPasswordFailure">{{confirmPasswordFailureMessage}}</td>
+            </tr>
+        </table>
+        <input type="button" class="btn-xs" value="Sign Up" ng-click="c.SignUp(AppAccount.userName, AppAccount.email, AppAccount.password, AppAccount.confirmPassword)">
+    <div>
+</div>
