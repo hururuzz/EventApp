@@ -1,12 +1,12 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 // Used DefinitelyType to use AngularJS in TypeScript file
 "use strict";
+var FormValidationMessage_1 = require("./Models/FormValidationMessage");
 var AppAccount = (function () {
     function AppAccount($scope, $http) {
         this.$scope = $scope;
         this.$http = $http;
     }
-    ;
     // parameterized $scope to use its AngularJS directive
     AppAccount.prototype.SignUp = function (userName, email, password, confirmPassword) {
         this.$scope.IsUserNameFailure = false;
@@ -17,10 +17,15 @@ var AppAccount = (function () {
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
-        if (typeof (this.userName) === "undefined") {
+        /*
+        if (typeof(this.userName) === "undefined"){
             this.$scope.IsUserNameFailure = true;
             this.$scope.userNameFailureMessage = "Username cannot be empty.";
         }
+        */
+        //console.log(FormFieldValidator.ValidateIsEmpty(this.userName, "Username"));
+        var a = new FormValidationMessage_1.FormValidationMessage();
+        console.log(a.formFieldFailureMessage);
         if (typeof (this.email) === "undefined") {
             this.$scope.IsEmailFailure = true;
             this.$scope.emailFailureMessage = "Email address cannot be empty.";
@@ -44,23 +49,25 @@ var AppAccount = (function () {
                 this.$scope.confirmPasswordFailureMessage = "Please confirm the password.";
             }
         }
+        /*
         this.$http({
             method: 'POST',
             url: '/SignUp',
             header: {
                 'Content-Type': 'application/json'
             },
-            data: {
+            data:{
                 userName: this.userName,
                 password: this.password,
                 email: this.email
             }
-        }).then(function (response) {
+        }).then(function(response){
             alert('Successfully Created!');
             location.reload();
-        }, function (error) {
+        }, function(error){
             alert('Error');
         });
+        */
     };
     AppAccount.prototype.SignIn = function (email, password) {
         this.email = email;

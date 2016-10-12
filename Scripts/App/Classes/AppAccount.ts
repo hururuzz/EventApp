@@ -1,7 +1,8 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 // Used DefinitelyType to use AngularJS in TypeScript file
 
-import {IAccount} from "./IAccount";
+import { IAccount } from "./IAccount";
+import { FormFieldValidator } from "./FormFieldValidator/FormFieldValidator";
 
 class AppAccount implements IAccount{
     userName: string;
@@ -11,7 +12,7 @@ class AppAccount implements IAccount{
     
     constructor(private $scope, private $http){
 
-    };
+    }
     // parameterized $scope to use its AngularJS directive
 
     SignUp(userName, email, password, confirmPassword){      
@@ -25,10 +26,15 @@ class AppAccount implements IAccount{
         this.password = password;
         this.confirmPassword = confirmPassword;
         
+
+        /*
         if (typeof(this.userName) === "undefined"){
             this.$scope.IsUserNameFailure = true;
             this.$scope.userNameFailureMessage = "Username cannot be empty.";
         }
+        */
+
+        //console.log(FormFieldValidator.ValidateIsEmpty(this.userName, "Username"));
 
         if (typeof(this.email) === "undefined"){
             this.$scope.IsEmailFailure = true;
@@ -56,6 +62,8 @@ class AppAccount implements IAccount{
             }
         }
 
+
+        /*
         this.$http({
             method: 'POST',
             url: '/SignUp',
@@ -73,6 +81,7 @@ class AppAccount implements IAccount{
         }, function(error){
             alert('Error');
         });
+        */
     }
 
     SignIn(email, password){

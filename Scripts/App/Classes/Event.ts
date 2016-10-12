@@ -1,4 +1,6 @@
-class Event {
+import {User} from "./User";
+
+export class Event {
         private eventId: number;
         private eventName: string;
         private date: Date;
@@ -7,25 +9,24 @@ class Event {
         private description: string;
         private eventHost: Array<User>;
         private participants: number;
-    }
 
-    function SearchEvents(){
-
-    }
-
-    function CreateEvent(){
+    SearchEvents(){
 
     }
 
-    function JoinEvent(eventId: number){
+    CreateEvent(){
 
     }
 
-    function DeleteEvent(eventId: number){
+    JoinEvent(eventId: number){
 
     }
 
-    function LeaveEvent(eventId: number){
+    DeleteEvent(eventId: number){
+
+    }
+
+    LeaveEvent(eventId: number){
 
     }
 }

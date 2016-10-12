@@ -21,6 +21,7 @@ var db = 'eventapp/';
 // Load script files when http server starts
 app.use('/scripts', express.static('scripts', {index: false}));
 app.use('/CSS', express.static('CSS', {index: false}));
+app.use('/Models', express.static('Models', {index: false}));
 
 app.set('view engine', 'ejs');
 app.set('Views', __dirname + '/Views');
