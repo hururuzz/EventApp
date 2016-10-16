@@ -1,5 +1,9 @@
 <% include layout %>
 <script src="/Scripts/App/AngularControllers/signInController.js"></script>
+<script src="/Scripts/App/Classes/AppAccount.js"></script>
+<script>
+    var AppAccount = new AppAccount();
+</script>
 
 <div ng-controller="SignInController" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
     <div>
@@ -7,14 +11,16 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Username</b></td>
-                <td><input type="text" class="input-xs" ng-model="username"></td>
+                <td><input type="text" class="input-xs" ng-model="AppAccount.username"></td>
+                <td ng-show="IsUserNameFailure">{{userNameFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Password</b></td>
-                <td><input type="password" class="input-xs" ng-model="password"></td>
+                <td><input type="password" class="input-xs" ng-model="AppAccount.password"></td>
+                <td ng-show="IsPasswordFailure">{{userNameFailureMessage}}</td>
             </tr>
         </table>
-        <input type="button" class="btn-xs" value="Sign In" ng-click="SignIn(username, password)">
+        <input type="button" class="btn-xs" value="Sign In" ng-click="SignIn(AppAccount.username, AppAccount.password)">
         <a href="/Views/forgotPassword"><input type="button" class="btn-xs" value="Forgot Password?"></a>  
     <div>
 </div>

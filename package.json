@@ -14,7 +14,8 @@
     "express": "^4.14.0",
     "http": "0.0.0",
     "nodemailer": "^2.6.0",
-    "request": "^2.75.0"
+    "request": "^2.75.0",
+    "require": "^2.4.20"
   },
   "devDependencies": {},
   "repository": {

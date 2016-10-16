@@ -64,6 +64,9 @@ app.post('/signup', function(req, res){
       res.end();
     }
   });
+});
+
+app.get('/signin', function(req, res){
 
 });
 

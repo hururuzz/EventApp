@@ -1,18 +1,20 @@
-import {IAccount} from "./IAccount";
+/// <reference path="IAccount.ts" />
 
 class GoogleAccount implements IAccount {
-    username: string;
+    userName: string;
+    email: string;
     password: string;
-}
+    confirmPassword: string;
 
-function SignUp(){
+    SignUp(userName, email, password, confirmPassword){
 
-}
-
-function SignIn(){
+    };
     
-}
+    SignIn(email, password){
 
-function IntegrateAccount(){
+    };
 
+    IntegrateAccount(){
+        
+    };
 }

@@ -1,10 +1,11 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 // Used DefinitelyType to use AngularJS in TypeScript file
 
-import { IAccount } from "./IAccount";
-import { FormFieldValidator } from "./FormFieldValidator/FormFieldValidator";
+/// <reference path="IAccount.ts" />
+/// <reference path="FormFieldValidator.ts" />
+/// <reference path="DbContext.ts" />
 
-class AppAccount implements IAccount{
+class AppAccount implements IAccount {
     userName: string;
     email: string;
     password: string;
@@ -15,78 +16,45 @@ class AppAccount implements IAccount{
     }
     // parameterized $scope to use its AngularJS directive
 
-    SignUp(userName, email, password, confirmPassword){      
-        this.$scope.IsUserNameFailure = false;
-        this.$scope.IsEmailFailure = false;
-        this.$scope.IsPasswordFailure = false;
-        this.$scope.IsConfirmPasswordFailure = false;
-        
+    
+    SignUp(userName, email, password, confirmPassword){
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
         
+        this.$scope.IsUserNameFailure = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").isTheFieldFailure;
+        this.$scope.userNameFailureMessage = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").formFieldFailureMessage;
+         
+        this.$scope.IsEmailFailure = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").isTheFieldFailure;
+        this.$scope.emailFailureMessage = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").formFieldFailureMessage;
 
-        /*
-        if (typeof(this.userName) === "undefined"){
-            this.$scope.IsUserNameFailure = true;
-            this.$scope.userNameFailureMessage = "Username cannot be empty.";
-        }
-        */
+        this.$scope.IsPasswordFailure = FormFieldValidator.ValidateIsPassword(this.password, "Password").isTheFieldFailure;
+        this.$scope.passwordFailureMessage = FormFieldValidator.ValidateIsPassword(this.password, "Password").formFieldFailureMessage;
 
-        //console.log(FormFieldValidator.ValidateIsEmpty(this.userName, "Username"));
+        this.$scope.IsConfirmPasswordFailure = FormFieldValidator.ValidateIsSameValue(this.confirmPassword, this.password, "Confirm Password").isTheFieldFailure;
+        this.$scope.confirmPasswordFailureMessage = FormFieldValidator.ValidateIsSameValue(this.confirmPassword, this.password, "Confirm Password").formFieldFailureMessage;
 
-        if (typeof(this.email) === "undefined"){
-            this.$scope.IsEmailFailure = true;
-            this.$scope.emailFailureMessage = "Email address cannot be empty.";
-        }
-
-        if (typeof(this.email) !== "undefined"){
-            if(this.email.indexOf("\@") < 0 || this.email.indexOf(".") < 0){
-                this.$scope.IsEmailFailure = true;
-                this.$scope.emailFailureMessage = "The email address is not valid format.";
-            }
-        }
-
-        if (typeof(this.password) === "undefined"){
-            this.$scope.IsPasswordFailure = true;
-            this.$scope.passwordFailureMessage = "Password cannot be empty.";
-        }
-
-        if (typeof(this.confirmPassword) === "undefined"){
-            this.$scope.IsConfirmPasswordFailure = true;
-            this.$scope.confirmPasswordFailureMessage = "Confirm password cannot be empty.";
-        } else {
-            if (this.password !== this.confirmPassword){
-                this.$scope.confirmPasswordFailureMessage = "Please confirm the password.";
-            }
-        }
-
-
-        /*
-        this.$http({
-            method: 'POST',
-            url: '/SignUp',
-            header: {
-                'Content-Type': 'application/json'
-            },
-            data:{
-                userName: this.userName,
-                password: this.password,
-                email: this.email
-            }
-        }).then(function(response){
-            alert('Successfully Created!');
-            location.reload();
-        }, function(error){
-            alert('Error');
-        });
-        */
+        if (
+            this.$scope.IsUserNameFailure === false &&
+            this.$scope.IsEmailFailure === false &&
+            this.$scope.IsPasswordFailure === false &&
+            this.$scope.IsConfirmPasswordFailure === false
+        ){
+            var db = new DbContext(this.$http);
+            db.CreateNewAccount(this.userName, this.email, this.password);
+        }        
     }
 
     SignIn(email, password){
         this.email = email;
-        this.password = password;    
+        this.password = password;
+
+        this.$scope.IsUserNameFailure = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").isTheFieldFailure;
+        this.$scope.userNameFailureMessage = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").formFieldFailureMessage;
+             
+        this.$scope.IsPasswordFailure = FormFieldValidator.ValidateIsEmpty(this.password, "Password").isTheFieldFailure;
+        this.$scope.passwordFailureMessage = FormFieldValidator.ValidateIsEmpty(this.password, "Password").formFieldFailureMessage;     
     }
 }
 
