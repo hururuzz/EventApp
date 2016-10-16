@@ -1,11 +1,14 @@
 <% include layout %>
 <script src="/Scripts/App/AngularControllers/signInController.js"></script>
 <script src="/Scripts/App/Classes/AppAccount.js"></script>
+<script src="/Scripts/App/Classes/FormFieldValidator.js"></script>
+<script src="/Scripts/App/Classes/FormValidationMessage.js"></script>
+<script src="/Scripts/App/Classes/DbContext.js"></script>
 <script>
     var AppAccount = new AppAccount();
 </script>
 
-<div ng-controller="SignInController" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+<div ng-controller="SignInController as c" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
     <div>
     <h3>Sign In</h3>
         <table class="table table-striped">
@@ -17,10 +20,10 @@
             <tr>
                 <td><b>Password</b></td>
                 <td><input type="password" class="input-xs" ng-model="AppAccount.password"></td>
-                <td ng-show="IsPasswordFailure">{{userNameFailureMessage}}</td>
+                <td ng-show="IsPasswordFailure">{{passwordFailureMessage}}</td>
             </tr>
         </table>
-        <input type="button" class="btn-xs" value="Sign In" ng-click="SignIn(AppAccount.username, AppAccount.password)">
+        <input type="button" class="btn-xs" value="Sign In" ng-click="c.SignIn(AppAccount.username, AppAccount.password)">
         <a href="/Views/forgotPassword"><input type="button" class="btn-xs" value="Forgot Password?"></a>  
     <div>
 </div>

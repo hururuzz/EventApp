@@ -19,28 +19,35 @@ class DbContext {
                 password: password
             }
         }).then(function(response){
-            alert('Successfully Created!');
-            location.reload();
+            if(response.data === ""){
+                alert('Successfully Created!');
+                location.reload();
+            } else if (response.data === "conflict") {
+                alert("The username is already taken.");
+            }
         }, function(error){
-            alert('Error');
+            alert(error);
         });
     }
 
-    GetUser(email, password){
+    GetUser(userName, password){
         this.$http({
             method: 'POST',
             url: '/SignIn',
-            header:{
-                'Content-Type': 'application/json'
+            header: {
+                'Content-Type': 'application-json'
             },
             data: {
-                email: email,
+                userName: userName,
                 password: password
             }
         }).then(function(response){
-            
+            console.log(response.data);
+            if(response.data === "not_found" || response.data === "Password incorrect"){
+                alert("Please verify username and password");
+            }        
         }, function(error){
-
+            alert(error);
         });
     }
 }

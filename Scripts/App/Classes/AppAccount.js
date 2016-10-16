@@ -30,15 +30,20 @@ var AppAccount = (function () {
             db.CreateNewAccount(this.userName, this.email, this.password);
         }
     };
-    AppAccount.prototype.SignIn = function (email, password) {
-        this.email = email;
+    AppAccount.prototype.SignIn = function (userName, password) {
+        this.userName = userName;
         this.password = password;
         this.$scope.IsUserNameFailure = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").isTheFieldFailure;
         this.$scope.userNameFailureMessage = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").formFieldFailureMessage;
         this.$scope.IsPasswordFailure = FormFieldValidator.ValidateIsEmpty(this.password, "Password").isTheFieldFailure;
         this.$scope.passwordFailureMessage = FormFieldValidator.ValidateIsEmpty(this.password, "Password").formFieldFailureMessage;
+        if (this.$scope.IsUserNameFailure === false && this.$scope.IsPasswordFailure === false) {
+            var db = new DbContext(this.$http);
+            db.GetUser(this.userName, this.password);
+        }
     };
     return AppAccount;
 }());
 //import angular module to use AngularJS in TypeScript file
 angular.module("EventApp").controller("SignUpController", AppAccount);
+angular.module("EventApp").controller("SignInController", AppAccount);

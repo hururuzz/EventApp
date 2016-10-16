@@ -13,10 +13,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // vars for Couch DB
 var dbUrl = 'http://localhost:5984/';
-var db = 'eventapp/';
+//var db = 'eventapp/';
 
-// command for creating CouchDB databse
-// http://localhost:5984/evetapp
+// url for creating CouchDB databse
+// http://localhost:5984/user
+// http://localhost:5984/event
 
 // Load script files when http server starts
 app.use('/scripts', express.static('scripts', {index: false}));
@@ -44,30 +45,60 @@ app.get('/myaccount', function (req, res) {
 
 
 app.post('/signup', function(req, res){
-  var id = Date.now();
+  var id = req.body.userName;
+  var table = "user/";
 
   request.put({
-    url: dbUrl + db + id,
+    url: dbUrl + table + id,
     header: 'Content-Type: application/json',
     body:{
-      userName: req.body.userName,
       email: req.body.email,
       password: req.body.password
     },
     json: true
   }, function(error, response, body){
     if(error){
-      return console.error(error);
+      console.log(error);
+      res.send(error);
+    }
+    else if(body.error){
+      console.log(body.error);
+      res.send(body.error);
     }
     else{
-      console.log('The account has been successfully created.', body);
+      console.log('The account has been successfully created.');
       res.end();
     }
   });
 });
 
-app.get('/signin', function(req, res){
+app.post('/signin', function(req, res){
+    var id = req.body.userName;
+    var password = req.body.password;
+    var table = "user/";
 
+    request.get({
+      url: dbUrl + table + id,
+      header: "Content-Type: application-json",
+      json: true
+    }, function(error, response, body){
+      if(error){
+        console.log(error);
+        res.send(error);
+      }
+      else if(body.error){
+        console.log(body.error);
+        res.send(body.error);
+      }
+      else{
+        if (password === body.password){
+          console.log("Log in: " + id + ", " + Date.now());
+          res.end();
+        } else {
+          res.send("Password incorrect");
+        }
+      }
+    });
 });
 
 
