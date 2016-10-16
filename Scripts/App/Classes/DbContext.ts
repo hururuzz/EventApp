@@ -42,8 +42,13 @@ class DbContext {
                 password: password
             }
         }).then(function(response){
-            console.log(response.data);
-            if(response.data === "not_found" || response.data === "Password incorrect"){
+            if (response.data === "Valid account"){
+                document.cookie = "username=" + userName + "; path=/";
+                // store a cookie
+                window.location.href = '/';
+                // redirect to homepage
+            }
+            else if (response.data === "not_found" || response.data === "Password incorrect"){
                 alert("Please verify username and password");
             }        
         }, function(error){

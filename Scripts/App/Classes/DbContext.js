@@ -40,8 +40,11 @@ var DbContext = (function () {
                 password: password
             }
         }).then(function (response) {
-            console.log(response.data);
-            if (response.data === "not_found" || response.data === "Password incorrect") {
+            if (response.data === "Valid account") {
+                document.cookie = "username=" + userName + "; path=/";
+                window.location.href = '/';
+            }
+            else if (response.data === "not_found" || response.data === "Password incorrect") {
                 alert("Please verify username and password");
             }
         }, function (error) {

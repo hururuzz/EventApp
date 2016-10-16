@@ -2,11 +2,15 @@ var express = require('express'),
     request = require('request'),
     bodyParser = require('body-parser'),
     http = require('http'),
+    md5 = require('md5'),
+    cookieParser = require('cookie-parser');
     emailer = require('nodemailer'),
     app = express();
 
 // for parsing application/json
 app.use(bodyParser.json());
+
+app.use(cookieParser());
 
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -43,6 +47,12 @@ app.get('/myaccount', function (req, res) {
   res.render('myAccount.ejs', {layout: 'layout.ejs'});
 });
 
+app.get('/signout', function (req, res) {
+  //console.log(req.headers.cookie);
+  res.clearCookie(req.headers.cookie, {path: '/'});
+  res.render('index.ejs', {layout: 'layout.ejs'});
+});
+
 
 app.post('/signup', function(req, res){
   var id = req.body.userName;
@@ -53,7 +63,8 @@ app.post('/signup', function(req, res){
     header: 'Content-Type: application/json',
     body:{
       email: req.body.email,
-      password: req.body.password
+      password: md5(req.body.password)
+      // Password is hashed in md5
     },
     json: true
   }, function(error, response, body){
@@ -74,7 +85,9 @@ app.post('/signup', function(req, res){
 
 app.post('/signin', function(req, res){
     var id = req.body.userName;
-    var password = req.body.password;
+    var password = md5(req.body.password);
+    // Password is hashed in md5
+    
     var table = "user/";
 
     request.get({
@@ -89,11 +102,12 @@ app.post('/signin', function(req, res){
       else if(body.error){
         console.log(body.error);
         res.send(body.error);
+        //Couch DB returns data with 'error' field.
       }
       else{
         if (password === body.password){
           console.log("Log in: " + id + ", " + Date.now());
-          res.end();
+          res.end("Valid account");
         } else {
           res.send("Password incorrect");
         }
