@@ -6,10 +6,10 @@ var DbContext = (function () {
     }
     DbContext.prototype.CreateNewAccount = function (userName, email, password) {
         this.$http({
-            method: 'POST',
-            url: '/SignUp',
+            method: "POST",
+            url: "/SignUp",
             header: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             data: {
                 userName: userName,
@@ -18,7 +18,7 @@ var DbContext = (function () {
             }
         }).then(function (response) {
             if (response.data === "") {
-                alert('Successfully Created!');
+                alert("Successfully Created!");
                 location.reload();
             }
             else if (response.data === "conflict") {
@@ -30,10 +30,10 @@ var DbContext = (function () {
     };
     DbContext.prototype.GetUser = function (userName, password) {
         this.$http({
-            method: 'POST',
-            url: '/SignIn',
+            method: "POST",
+            url: "/SignIn",
             header: {
-                'Content-Type': 'application-json'
+                "Content-Type": "application-json"
             },
             data: {
                 userName: userName,
@@ -42,11 +42,29 @@ var DbContext = (function () {
         }).then(function (response) {
             if (response.data === "Valid account") {
                 document.cookie = "username=" + userName + "; path=/";
-                window.location.href = '/';
+                // store a cookie
+                window.location.href = "/";
             }
             else if (response.data === "not_found" || response.data === "Password incorrect") {
                 alert("Please verify username and password");
             }
+        }, function (error) {
+            alert(error);
+        });
+    };
+    DbContext.prototype.ResetPassword = function (userName, email) {
+        this.$http({
+            method: "POST",
+            url: "/ForgotPassword",
+            header: {
+                "Content-Type": "application-json"
+            },
+            data: {
+                userName: userName,
+                email: email
+            }
+        }).then(function (response) {
+            console.log(response);
         }, function (error) {
             alert(error);
         });

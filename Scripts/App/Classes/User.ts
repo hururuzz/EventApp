@@ -1,4 +1,4 @@
-export class User {
+class User {
     userId: number;
 
     ViewUserEvents(userId: number): Event{

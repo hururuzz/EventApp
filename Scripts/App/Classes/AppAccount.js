@@ -42,8 +42,21 @@ var AppAccount = (function () {
             db.GetUser(this.userName, this.password);
         }
     };
+    AppAccount.prototype.ResetPassword = function (userName, email) {
+        this.userName = userName;
+        this.email = email;
+        this.$scope.IsUserNameFailure = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").isTheFieldFailure;
+        this.$scope.userNameFailureMessage = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").formFieldFailureMessage;
+        this.$scope.IsEmailFailure = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").isTheFieldFailure;
+        this.$scope.emailFailureMessage = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").formFieldFailureMessage;
+        if (this.$scope.IsUserNameFailure === false && this.$scope.IsEmailFailure === false) {
+            var db = new DbContext(this.$http);
+            db.ResetPassword(this.userName, this.email);
+        }
+    };
     return AppAccount;
 }());
 //import angular module to use AngularJS in TypeScript file
 angular.module("EventApp").controller("SignUpController", AppAccount);
 angular.module("EventApp").controller("SignInController", AppAccount);
+angular.module("EventApp").controller("ForgotPasswordController", AppAccount);

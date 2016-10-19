@@ -61,8 +61,27 @@ class AppAccount implements IAccount {
             db.GetUser(this.userName, this.password);
         }
     }
+
+    ResetPassword(userName, email){
+        this.userName = userName;
+        this.email = email;
+
+        this.$scope.IsUserNameFailure = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").isTheFieldFailure;
+        this.$scope.userNameFailureMessage = FormFieldValidator.ValidateIsEmpty(this.userName, "Username").formFieldFailureMessage;
+             
+        this.$scope.IsEmailFailure = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").isTheFieldFailure;
+        this.$scope.emailFailureMessage = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").formFieldFailureMessage;     
+        
+        
+        if(this.$scope.IsUserNameFailure === false && this.$scope.IsEmailFailure === false){
+            var db = new DbContext(this.$http);
+            db.ResetPassword(this.userName, this.email);
+        }
+        
+    }
 }
 
 //import angular module to use AngularJS in TypeScript file
 angular.module("EventApp").controller("SignUpController", AppAccount);
 angular.module("EventApp").controller("SignInController", AppAccount);
+angular.module("EventApp").controller("ForgotPasswordController", AppAccount)
