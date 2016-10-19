@@ -48,5 +48,31 @@ var DbContext = (function () {
             alert(error);
         });
     };
+    DbContext.prototype.CreateEvent = function (eventName, tag, date, location, invitees, description) {
+        this.$http({
+            method: 'POST',
+            url: '/CreateEvent',
+            header: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                eventName: eventName,
+                tag: tag,
+                date: date,
+                location: location,
+                invitees: invitees,
+                description: description
+            }
+        }).then(function (response) {
+            if (response.data === "") {
+                alert('Successfully Created!');
+            }
+            else if (response.data === "conflict") {
+                alert("There is a database conflict");
+            }
+        }, function (error) {
+            alert(error);
+        });
+    };
     return DbContext;
 }());
