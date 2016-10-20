@@ -148,8 +148,6 @@ app.post("/ForgotPassword", function(req, res){
     };
 });
 
-
-
 app.listen(8000, function(){
     console.log("The server is listening port 8000");
 });

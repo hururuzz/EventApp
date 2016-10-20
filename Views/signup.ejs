@@ -5,8 +5,9 @@
 <script src="/Scripts/App/Classes/FormValidationMessage.js"></script>
 <script src="/Scripts/App/Classes/DbContext.js"></script>
 <script>
-var AppAccount = new AppAccount();
+    var AppAccount = new AppAccount();
 </script>
+
 <div ng-controller="SignUpController as c" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
     <div>
     <h3>Sign Up</h3>
@@ -33,5 +34,5 @@ var AppAccount = new AppAccount();
             </tr>
         </table>
         <input type="button" class="btn-xs" value="Sign Up" ng-click="c.SignUp(AppAccount.userName, AppAccount.email, AppAccount.password, AppAccount.confirmPassword)">
-    <div>
+    </div>
 </div>
