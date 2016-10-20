@@ -1,4 +1,3 @@
-"use strict";
 var User = (function () {
     function User() {
     }
@@ -8,4 +7,3 @@ var User = (function () {
     };
     return User;
 }());
-exports.User = User;
