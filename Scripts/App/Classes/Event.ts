@@ -4,8 +4,6 @@
 /// <reference path="DbContext.ts" />
 /// <reference path="User.ts" />
 
-import {User} from "./User"; 
-
 export class Event {
         // Other variables
         private eventId: number;
