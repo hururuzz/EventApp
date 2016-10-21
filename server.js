@@ -58,6 +58,9 @@ app.get("/signout", function (req, res) {
   res.render("index.ejs", {layout: "layout.ejs"});
 });
 
+app.get('/createevent', function (req, res) {
+  res.render('createEvent.ejs', {layout: 'layout.ejs'});
+});
 
 app.post("/signup", function(req, res){
   var id = req.body.userName;
@@ -146,6 +149,40 @@ app.post("/ForgotPassword", function(req, res){
           res.send(response.body).end();
         }
     };
+});
+
+app.post("/CreateEvent", function(req, res) {
+    var temporaryDate = new Date();
+
+    var id = temporaryDate.getTime(); 
+    var table = "event/";
+
+    request.put({
+      url: dbUrl + table + id,
+      header: 'Content-Type: application/json',
+      body:{
+        eventName: req.body.eventName,
+        tag: req.body.tag,
+        date: req.body.date,
+        location: req.body.location,
+        invitees: req.body.invitees,
+        description: req.body.description
+      },
+      json: true
+    }, function(error, response, body){
+    if(error){
+      console.log(error);
+      res.send(error);
+    }
+    else if(body.error){
+      console.log(body.error);
+      res.send(body.error);
+    }
+    else{
+      console.log('The event has been succesfully created.');
+      res.end();
+    }
+  });
 });
 
 app.listen(8000, function(){
