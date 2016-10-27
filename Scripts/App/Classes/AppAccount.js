@@ -40,7 +40,7 @@ var AppAccount = (function () {
         if (this.$scope.IsUserNameFailure === false && this.$scope.IsPasswordFailure === false) {
             var db = new DbContext(this.$http);
             db.GetUser(this.userName, this.password);
-        } 
+        }
     };
     AppAccount.prototype.ResetPassword = function (userName, email) {
         this.userName = userName;

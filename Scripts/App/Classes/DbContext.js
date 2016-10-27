@@ -64,7 +64,14 @@ var DbContext = (function () {
                 email: email
             }
         }).then(function (response) {
-            console.log(response);
+            //console.log(response.data);
+            if (response.data === true) {
+                alert('Password has been successfully reset.');
+                window.location.href = "/signin";
+            }
+            else {
+                alert('Please check your username and email.');
+            }
         }, function (error) {
             alert(error);
         });

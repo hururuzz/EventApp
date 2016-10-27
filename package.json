@@ -1,30 +1,34 @@
 {
   "name": "eventapp",
   "version": "1.0.0",
+  "description": "",
   "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "couchdb-dbcontext": "^1.0.0",
+    "couchdb-request": "^1.1.1",
+    "ejs": "^2.5.2",
+    "cookie-parser": "^1.4.3",
+    "http": "^0.0.0",
+    "nodemailer": "^2.6.0",
+    "md5": "^2.2.1",
+    "request": "^2.75.0",
+    "express": "^4.14.0",
+    "randomstring": "^1.1.5"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "ejs": "^2.5.2",
-    "express": "^4.14.0",
-    "http": "0.0.0",
-    "nodemailer": "^2.6.0",
-    "request": "^2.75.0",
-    "require": "^2.4.20"
-  },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hururuzz/EventApp.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/hururuzz/EventApp/issues"
   },
-  "homepage": "https://github.com/hururuzz/EventApp#readme",
-  "description": ""
+  "homepage": "https://github.com/hururuzz/EventApp#readme"
 }

@@ -3,9 +3,10 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     http = require("http"),
     md5 = require("md5"),
-    randomString = require('randomstring'),
+    randomString = require("randomstring"),
     cookieParser = require("cookie-parser"),
-    emailer = require("nodemailer"),
+    couchDbContext = require("couchdb-dbcontext"),
+    emailSender = require("emailsender"),
     app = express();
 
 // for parsing application/json
@@ -115,9 +116,9 @@ app.post("/signin", function(req, res){
       else{
         if (password === body.password){
           console.log("Log in: " + id + ", " + Date.now());
-          res.end("Valid account");
+          res.send("Valid account").end();
         } else {
-          res.send("Password incorrect");
+          res.send("Password incorrect").end();
         }
       }
     });
@@ -129,26 +130,33 @@ app.post("/ForgotPassword", function(req, res){
 
     var table = "user/";
 
-    var doc = JSON.parse(randomString.generate(7));
-    console.log(doc);
-    
-    request.put({
-      url: dbUrl + table + id,
-      header: "Content-Type: application/json",
-      json: true,
-      body: doc
-    }), function(error, response, body){
-        if(error){
-          console.log(error);
-          res.send(error).end();  
-        } else if (body.error){
-          console.log(body.error);
-          res.send(body.error).end();
+    couchDbContext.getData(dbUrl, table, id, function(error, response, body){
+        callback(response.body);
+    });
+
+    //callback function for user data retrieval
+    function callback(response){
+        if (response._id && (response.email === email)){
+            var newPassword = randomString.generate(7);
+            var newPasswordEncrypted = md5(newPassword);
+            
+            var emailContents = emailSender.setEmailContents(response.email, "Your password has been reset", "New Password: " + newPassword);
+            emailSender.sendEmail(emailContents);
+
+            couchDbContext.saveData(dbUrl, table, id, {
+              _id: response._id,
+              _rev: response._rev,
+              email: response.email,
+              password: newPasswordEncrypted
+            }, function(response){
+              console.log("log from server.js" + response); 
+            });
+
+            res.send(true).end();
         } else {
-          console.log(response.body);
-          res.send(response.body).end();
+          res.send(false).end();
         }
-    };
+    }
 });
 
 app.post("/CreateEvent", function(req, res) {

@@ -76,8 +76,7 @@ class AppAccount implements IAccount {
         if(this.$scope.IsUserNameFailure === false && this.$scope.IsEmailFailure === false){
             var db = new DbContext(this.$http);
             db.ResetPassword(this.userName, this.email);
-        }
-        
+        }   
     }
 }
 
