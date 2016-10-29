@@ -106,4 +106,25 @@ class DbContext {
             alert(error);
         });
     }
+
+    ChangePassword(username, password, newPassword){
+        this.$http({
+            method: 'POST',
+            url: '/ChangePassword',
+            header: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                username: username,
+                password: password,
+                newPassword: newPassword
+            }
+        }).then(function(response){
+            //console.log(response.data);
+            alert('The password has been successfully changed.');
+            window.location.href = '/SignIn';
+        }, function(error){
+            console.log(error);
+        });
+    }
 }

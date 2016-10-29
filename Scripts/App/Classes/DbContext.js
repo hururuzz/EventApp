@@ -64,7 +64,7 @@ var DbContext = (function () {
                 email: email
             }
         }).then(function (response) {
-            //console.log(response.data);
+            console.log(response.data);
             if (response.data === true) {
                 alert('Password has been successfully reset.');
                 window.location.href = "/signin";
@@ -100,6 +100,26 @@ var DbContext = (function () {
             }
         }, function (error) {
             alert(error);
+        });
+    };
+    DbContext.prototype.ChangePassword = function (username, password, newPassword) {
+        this.$http({
+            method: 'POST',
+            url: '/ChangePassword',
+            header: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                username: username,
+                password: password,
+                newPassword: newPassword
+            }
+        }).then(function (response) {
+            //console.log(response.data);
+            alert('The password has been successfully changed.');
+            window.location.href = '/SignIn';
+        }, function (error) {
+            console.log(error);
         });
     };
     return DbContext;

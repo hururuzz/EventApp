@@ -10,6 +10,7 @@ class AppAccount implements IAccount {
     email: string;
     password: string;
     confirmPassword: string;
+    newPassword: string;
     
     constructor(private $scope, private $http){
 
@@ -78,9 +79,31 @@ class AppAccount implements IAccount {
             db.ResetPassword(this.userName, this.email);
         }   
     }
+
+    ChangePassword(password, newPassword, newConfirmPassword){        
+        this.password = password;
+        this.newPassword = newPassword;
+        this.confirmPassword = newConfirmPassword;
+        
+        this.$scope.IsCurrentPasswordFailure = FormFieldValidator.ValidateIsEmpty(this.password, "Current Password").isTheFieldFailure;
+        this.$scope.currentPasswordFailureMessage = FormFieldValidator.ValidateIsEmpty(this.password, "Current Password").formFieldFailureMessage;
+
+        this.$scope.IsPasswordFailure = FormFieldValidator.ValidateIsPassword(this.newPassword, "New Password").isTheFieldFailure;
+        this.$scope.passwordFailureMessage = FormFieldValidator.ValidateIsPassword(this.newPassword, "New Password").formFieldFailureMessage;
+
+        this.$scope.IsConfirmPasswordFailure = FormFieldValidator.ValidateIsSameValue(this.confirmPassword, this.newPassword, "Confirm New Password").isTheFieldFailure;
+        this.$scope.confirmPasswordFailureMessage = FormFieldValidator.ValidateIsSameValue(this.confirmPassword, this.newPassword, "Confirm New Password").formFieldFailureMessage;
+       
+        if (this.$scope.IsCurrentPasswordFailure === false && this.$scope.IsPasswordFailure === false && this.$scope.IsConfirmPasswordFailure === false){
+            let username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            let db = new DbContext(this.$http)
+            db.ChangePassword(username, this.password, this.newPassword);
+        }
+    }
 }
 
 //import angular module to use AngularJS in TypeScript file
 angular.module("EventApp").controller("SignUpController", AppAccount);
 angular.module("EventApp").controller("SignInController", AppAccount);
-angular.module("EventApp").controller("ForgotPasswordController", AppAccount)
+angular.module("EventApp").controller("ForgotPasswordController", AppAccount);
+angular.module("EventApp").controller("MyAccountController", AppAccount);

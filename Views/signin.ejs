@@ -14,16 +14,16 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Username</b></td>
-                <td><input type="text" class="input-xs" ng-model="AppAccount.username"></td>
+                <td><input type="text" class="input" ng-model="AppAccount.username"></td>
                 <td ng-show="IsUserNameFailure">{{userNameFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Password</b></td>
-                <td><input type="password" class="input-xs" ng-model="AppAccount.password"></td>
+                <td><input type="password" class="input" ng-model="AppAccount.password"></td>
                 <td ng-show="IsPasswordFailure">{{passwordFailureMessage}}</td>
             </tr>
         </table>
-        <input type="button" class="btn-xs" value="Sign In" ng-click="c.SignIn(AppAccount.username, AppAccount.password)">
-        <a href="forgotPassword"><input type="button" class="btn-xs" value="Forgot Password?"></a>  
+        <input type="button" class="btn" value="Sign In" ng-click="c.SignIn(AppAccount.username, AppAccount.password)">
+        <a href="forgotPassword"><input type="button" class="btn" value="Forgot Password?"></a>  
     <div>
 </div>

@@ -5,5 +5,3 @@ var FormValidationMessage = (function () {
     }
     return FormValidationMessage;
 }());
-//import angular module to use AngularJS in TypeScript file
-angular.module("EventApp").controller("MyAccountController", FormValidationMessage);

@@ -159,6 +159,37 @@ app.post("/ForgotPassword", function(req, res){
     }
 });
 
+app.post("/ChangePassword", function(req, res){
+    var id = req.body.username;
+    var password = req.body.password;
+    var newPassword = req.body.newPassword;
+
+    var table = "user/";
+
+    couchDbContext.getData(dbUrl, table, id, function(error, response, body){
+        callback(response.body);
+    });
+
+    function callback(response){
+      //console.log(response);
+      if (response.password !== md5(password)){
+        alert('Password is incorrect');
+        res.send(false).end();
+      } else {
+        couchDbContext.saveData(dbUrl, table, id, {
+          _id: response._id,
+          _rev: response._rev,
+          password: md5(newPassword)
+        }, function(response){
+          console.log(response);
+        })
+      }
+    }
+
+    res.send(true).end();
+
+});
+
 app.post("/CreateEvent", function(req, res) {
     var temporaryDate = new Date();
 
