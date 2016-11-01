@@ -1,0 +1,8 @@
+{
+  "_id" : "_design/event",
+  "views" : {
+    "getAllEvents" : {
+      "map" : "function(doc){emit(doc._id, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitee, doc.description, doc.eventHost, doc.isActive]);}"
+    }
+  }
+}

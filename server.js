@@ -50,7 +50,7 @@ app.get("/forgotpassword", function (req, res) {
 });
 
 app.get("/myaccount", function (req, res) {
-  res.render("myAccount.ejs", {layout: "layout.ejs"});
+  res.render("myAccount.ejs", {layout: "layout.ejs", eventListForm: "eventListForm.ejs"});
 });
 
 app.get("/signout", function (req, res) {
@@ -65,10 +65,10 @@ app.get('/createevent', function (req, res) {
 
 app.post("/signup", function(req, res){
   var id = req.body.userName;
-  var table = "user/";
+  var table = "user";
 
   request.put({
-    url: dbUrl + table + id,
+    url: [dbUrl, table, id].join('/'),
     header: "Content-Type: application/json",
     body:{
       email: req.body.email,
@@ -97,10 +97,10 @@ app.post("/signin", function(req, res){
     var password = md5(req.body.password);
     // Password is hashed in md5
     
-    var table = "user/";
+    var table = "user";
 
     request.get({
-      url: dbUrl + table + id,
+      url: [dbUrl, table, id].join('/'),
       header: "Content-Type: application-json",
       json: true
     }, function(error, response, body){
@@ -128,7 +128,7 @@ app.post("/ForgotPassword", function(req, res){
     var id = req.body.userName;
     var email = req.body.email;
 
-    var table = "user/";
+    var table = "user";
 
     couchDbContext.getData(dbUrl, table, id, function(error, response, body){
         callback(response.body);
@@ -164,7 +164,7 @@ app.post("/ChangePassword", function(req, res){
     var password = req.body.password;
     var newPassword = req.body.newPassword;
 
-    var table = "user/";
+    var table = "user";
 
     couchDbContext.getData(dbUrl, table, id, function(error, response, body){
         callback(response.body);
@@ -194,10 +194,10 @@ app.post("/CreateEvent", function(req, res) {
     var temporaryDate = new Date();
 
     var id = temporaryDate.getTime(); 
-    var table = "event/";
+    var table = "event";
 
     request.put({
-      url: dbUrl + table + id,
+      url: [dbUrl, table, id].join('/'),
       header: 'Content-Type: application/json',
       body:{
         eventName: req.body.eventName,
@@ -205,7 +205,9 @@ app.post("/CreateEvent", function(req, res) {
         date: req.body.date,
         location: req.body.location,
         invitees: req.body.invitees,
-        description: req.body.description
+        description: req.body.description,
+        eventHost: req.body.eventHost,
+        isActive: req.body.isActive
       },
       json: true
     }, function(error, response, body){
@@ -222,6 +224,38 @@ app.post("/CreateEvent", function(req, res) {
       res.end();
     }
   });
+});
+
+app.post('/HostedEvent', function(req,res){
+    var username = req.body.username;
+    var table = 'event';
+
+    /*
+    couchDbContext.viewData(dbUrl, table, 'event', 'getAllEvents', null, function(error, response, body){
+      callback(response);
+    });
+
+    function callback(response){
+      console.log(response);
+    }
+    */
+
+    var searchKeyword = (typeof searchKeyword === undefined) ? '' : '"?key="' + searchKeyword + '"';
+
+    request({
+        method: 'GET',
+        url: [dbUrl, table, '_design', 'event', '_view', 'getAllEvents'].join('/'),
+        json: true
+    },function(error, response, body){
+      if (error){
+        console.log(error);
+      } else if (body.error){
+        console.log(body.error);
+      } else {
+        console.log(body.rows);
+        res.send(body.rows).end();
+      }
+    });
 });
 
 app.listen(8000, function(){

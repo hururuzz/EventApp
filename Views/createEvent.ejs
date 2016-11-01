@@ -3,7 +3,7 @@
 <script src="/Scripts/App/Classes/Event.js"></script>
 <script src="/Scripts/App/Classes/DbContext.js"></script>
 <script>
-    var Event = new Event();
+    var UserEvent = new UserEvent();
 </script>
 
 <div ng-controller="CreateEventController as c" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
@@ -12,34 +12,34 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Event Name</b></td>
-                <td><input type="text" class="input" ng-model="Event.eventName"></td>
+                <td><input type="text" class="input" ng-model="UserEvent.eventName"></td>
             </tr>
             <tr>
                 <td><b>Tag</b></td>
-                <td><input type="text" class="input" ng-model="Event.tag"></td>
+                <td><input type="text" class="input" ng-model="UserEvent.tag"></td>
             </tr>
             <tr>
                 <td><b>Date</b></td>
-                <td><input type="text" class="input" ng-model="Event.date"></td>
+                <td><input type="text" class="input" ng-model="UserEvent.date"></td>
             </tr>
             <tr>
                 <td><b>Time</b></td>
-                <td><input type="text" class="input" ng-model="Event.time"></td>
+                <td><input type="text" class="input" ng-model="UserEvent.time"></td>
             </tr>
             <tr>
                 <td><b>Location</b></td>
-                <td><input type="text" class="input" ng-model="Event.location"></td>
+                <td><input type="text" class="input" ng-model="UserEvent.location"></td>
             </tr>
             <tr>
                 <td><b>Invitees</b></td>
-                <td><input type="text" class="input" ng-model="Event.invitees"></td>
+                <td><input type="text" class="input" ng-model="UserEvent.invitees"></td>
             </tr>
             <tr>
                 <td><b>Description</b></td>
-                <td><input type="text" class="input" ng-model="Event.description"></td>
+                <td><input type="text" class="input" ng-model="UserEvent.description"></td>
             </tr>
         </table>
-        <input type="button" class="btn" value="Create Event" ng-click="c.CreateEvent(Event.eventName, Event.tag, Event.date, Event.time, Event.location, Event.invitees, Event.description)">
+        <input type="button" class="btn" value="Create Event" ng-click="c.CreateEvent(UserEvent.eventName, UserEvent.tag, UserEvent.date, UserEvent.time, UserEvent.location, UserEvent.invitees, UserEvent.description)">
         <input type="button" class="btn" value="Cancel" ng-click="c.Cancel()">
     </div>
 </div>

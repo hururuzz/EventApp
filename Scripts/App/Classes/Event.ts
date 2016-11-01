@@ -1,10 +1,9 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 // Used DefinitelyType to use AngularJS in TypeScript file
-/// <reference path="IAccount.ts" />
 /// <reference path="DbContext.ts" />
 /// <reference path="User.ts" />
 
-export class Event {
+class UserEvent {
         // Other variables
         private eventId: number;
         private address: string;
@@ -37,7 +36,7 @@ export class Event {
         this.invitees = invitees;
         this.description = description;
 
-        var db = new DbContext(this.$http);
+        var db = new DbContext(this.$scope, this.$http);
         db.CreateEvent(this.eventName, this.tag, this.date, this.location, this.invitees, this.description);
     }
 
@@ -55,4 +54,4 @@ export class Event {
 }
 
 //import angular module to use AngularJS in TypeScript file
-angular.module("EventApp").controller("CreateEventController", Event);
+angular.module("EventApp").controller("CreateEventController", UserEvent);

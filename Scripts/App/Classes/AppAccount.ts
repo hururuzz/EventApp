@@ -42,7 +42,7 @@ class AppAccount implements IAccount {
             this.$scope.IsPasswordFailure === false &&
             this.$scope.IsConfirmPasswordFailure === false
         ){
-            var db = new DbContext(this.$http);
+            var db = new DbContext(this. $scope, this.$http);
             db.CreateNewAccount(this.userName, this.email, this.password);
         }
     }
@@ -58,7 +58,7 @@ class AppAccount implements IAccount {
         this.$scope.passwordFailureMessage = FormFieldValidator.ValidateIsEmpty(this.password, "Password").formFieldFailureMessage;     
     
         if(this.$scope.IsUserNameFailure === false && this.$scope.IsPasswordFailure === false){
-            var db = new DbContext(this.$http);
+            var db = new DbContext(this. $scope, this.$http);
             db.GetUser(this.userName, this.password);
         }
     }
@@ -75,7 +75,7 @@ class AppAccount implements IAccount {
         
         
         if(this.$scope.IsUserNameFailure === false && this.$scope.IsEmailFailure === false){
-            var db = new DbContext(this.$http);
+            var db = new DbContext(this. $scope, this.$http);
             db.ResetPassword(this.userName, this.email);
         }   
     }
@@ -96,7 +96,7 @@ class AppAccount implements IAccount {
        
         if (this.$scope.IsCurrentPasswordFailure === false && this.$scope.IsPasswordFailure === false && this.$scope.IsConfirmPasswordFailure === false){
             let username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-            let db = new DbContext(this.$http)
+            let db = new DbContext(this. $scope, this.$http);
             db.ChangePassword(username, this.password, this.newPassword);
         }
     }

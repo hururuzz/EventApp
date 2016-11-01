@@ -1,5 +1,6 @@
 <% include layout %>
 <script src="/Scripts/App/AngularControllers/myAccountController.js"></script>
+<script src="/Scripts/App/AngularControllers/userController.js"></script>
 <script src="/Scripts/App/Classes/AppAccount.js"></script>
 <script src="/Scripts/App/Classes/FormFieldValidator.js"></script>
 <script src="/Scripts/App/Classes/FormValidationMessage.js"></script>
@@ -7,15 +8,21 @@
 <script>
     var AppAccount = new AppAccount();
 </script>
-
-<div ng-controller="MyAccountController as c" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
-    <div>
+<div ng-controller="UserController" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+    <div ng-init="ViewUserEvents()">
         <h3>Events You've Hosted</h3>
+        <div ng-repeat="item in userEventList">
+            <% include eventListForm %>
+        </div>
     </div>
-    <hr>
     <div>
         <h3>Events You've Joined</h3>
     </div>
+</div>
+
+<hr>
+
+<div ng-controller="MyAccountController as c" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
     <hr>
     <div>
         <h3>Change Your Password</h3>
@@ -39,3 +46,11 @@
         <input type="button" class="btn" value="Change Password" ng-click="c.ChangePassword(AppAccount.password, AppAccount.newPassword, AppAccount.confirmPassword)">
     </div>
 </div>
+
+<script>
+    if (document.cookie !== '') {
+        document.getElementById('quitEventButtonValue').innerHTML = 'Drop'
+    } else {
+        document.getElementById('quitEventButtonValue').innerHTML = 'Leave'
+    }
+</script>

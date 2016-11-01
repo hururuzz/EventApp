@@ -1,8 +1,25 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 // Used DefinitelyType to use AngularJS in TypeScript file
 var DbContext = (function () {
-    function DbContext($http) {
+    function DbContext($scope, $http) {
+        this.$scope = $scope;
         this.$http = $http;
+        this.GetHostedEvent = function (username, callback) {
+            this.$http({
+                method: 'POST',
+                url: '/HostedEvent',
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    username: username
+                }
+            }).then(function (response) {
+                callback(response.data.rows);
+            }, function (error) {
+                callback(error);
+            });
+        };
     }
     DbContext.prototype.CreateNewAccount = function (userName, email, password) {
         this.$http({
@@ -77,6 +94,7 @@ var DbContext = (function () {
         });
     };
     DbContext.prototype.CreateEvent = function (eventName, tag, date, location, invitees, description) {
+        var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         this.$http({
             method: 'POST',
             url: '/CreateEvent',
@@ -89,7 +107,9 @@ var DbContext = (function () {
                 date: date,
                 location: location,
                 invitees: invitees,
-                description: description
+                description: description,
+                eventHost: username,
+                isActive: 'y'
             }
         }).then(function (response) {
             if (response.data === "") {
@@ -124,3 +144,5 @@ var DbContext = (function () {
     };
     return DbContext;
 }());
+//import angular module to use AngularJS in TypeScript file
+angular.module("EventApp");

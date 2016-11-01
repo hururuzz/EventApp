@@ -26,7 +26,7 @@ var AppAccount = (function () {
             this.$scope.IsEmailFailure === false &&
             this.$scope.IsPasswordFailure === false &&
             this.$scope.IsConfirmPasswordFailure === false) {
-            var db = new DbContext(this.$http);
+            var db = new DbContext(this.$scope, this.$http);
             db.CreateNewAccount(this.userName, this.email, this.password);
         }
     };
@@ -38,7 +38,7 @@ var AppAccount = (function () {
         this.$scope.IsPasswordFailure = FormFieldValidator.ValidateIsEmpty(this.password, "Password").isTheFieldFailure;
         this.$scope.passwordFailureMessage = FormFieldValidator.ValidateIsEmpty(this.password, "Password").formFieldFailureMessage;
         if (this.$scope.IsUserNameFailure === false && this.$scope.IsPasswordFailure === false) {
-            var db = new DbContext(this.$http);
+            var db = new DbContext(this.$scope, this.$http);
             db.GetUser(this.userName, this.password);
         }
     };
@@ -50,7 +50,7 @@ var AppAccount = (function () {
         this.$scope.IsEmailFailure = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").isTheFieldFailure;
         this.$scope.emailFailureMessage = FormFieldValidator.ValidateIsEmailForm(this.email, "Email").formFieldFailureMessage;
         if (this.$scope.IsUserNameFailure === false && this.$scope.IsEmailFailure === false) {
-            var db = new DbContext(this.$http);
+            var db = new DbContext(this.$scope, this.$http);
             db.ResetPassword(this.userName, this.email);
         }
     };
@@ -66,7 +66,7 @@ var AppAccount = (function () {
         this.$scope.confirmPasswordFailureMessage = FormFieldValidator.ValidateIsSameValue(this.confirmPassword, this.newPassword, "Confirm New Password").formFieldFailureMessage;
         if (this.$scope.IsCurrentPasswordFailure === false && this.$scope.IsPasswordFailure === false && this.$scope.IsConfirmPasswordFailure === false) {
             var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-            var db = new DbContext(this.$http);
+            var db = new DbContext(this.$scope, this.$http);
             db.ChangePassword(username, this.password, this.newPassword);
         }
     };
