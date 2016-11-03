@@ -27,17 +27,7 @@ class UserEvent {
     }
 
     CreateEvent(eventName, tag, date, time, location, invitees, description){
-        alert(eventName + " " + tag + " " + date + " " + time + " " + location + " " + invitees + " " + description);
-        
-        this.eventName = eventName;
-        this.tag = tag;
-        this.date = date;
-        this.location = location;
-        this.invitees = invitees;
-        this.description = description;
-
-        var db = new DbContext(this.$scope, this.$http);
-        db.CreateEvent(this.eventName, this.tag, this.date, this.location, this.invitees, this.description);
+        //implemented in createEventController.js
     }
 
     JoinEvent(eventId: number){
@@ -54,4 +44,4 @@ class UserEvent {
 }
 
 //import angular module to use AngularJS in TypeScript file
-angular.module("EventApp").controller("CreateEventController", UserEvent);
+//angular.module("EventApp").controller("CreateEventController", UserEvent);

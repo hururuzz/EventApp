@@ -14,22 +14,22 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Username</b></td>
-                <td><input type="text" class="input-xs" ng-model="AppAccount.userName"></td>
+                <td><input type="text" class="form-control" ng-model="AppAccount.userName"></td>
                 <td ng-show="IsUserNameFailure">{{userNameFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Email</b></td>
-                <td><input type="text" class="input-xs" ng-model="AppAccount.email"></td>
+                <td><input type="text" class="form-control" ng-model="AppAccount.email"></td>
                 <td ng-show="IsEmailFailure">{{emailFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Password</b></td>
-                <td><input type="password" class="input-xs" ng-model="AppAccount.password"></td>
+                <td><input type="password" class="form-control" ng-model="AppAccount.password"></td>
                 <td ng-show="IsPasswordFailure">{{passwordFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Confirm Password</b></td>
-                <td><input type="password" class="input-xs" ng-model="AppAccount.confirmPassword"></td>
+                <td><input type="password" class="form-control" ng-model="AppAccount.confirmPassword"></td>
                 <td ng-show="IsConfirmPasswordFailure">{{confirmPasswordFailureMessage}}</td>
             </tr>
         </table>

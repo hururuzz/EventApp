@@ -12,10 +12,9 @@ var UserEvent = (function () {
     UserEvent.prototype.SearchEvents = function () {
     };
     UserEvent.prototype.CreateEvent = function (eventName, tag, date, time, location, invitees, description) {
-        alert(eventName + " " + tag + " " + date + " " + time + " " + location + " " + invitees + " " + description);
         this.eventName = eventName;
         this.tag = tag;
-        this.date = date;
+        this.date = date + time;
         this.location = location;
         this.invitees = invitees;
         this.description = description;
@@ -31,4 +30,4 @@ var UserEvent = (function () {
     return UserEvent;
 }());
 //import angular module to use AngularJS in TypeScript file
-angular.module("EventApp").controller("CreateEventController", UserEvent);
+//angular.module("EventApp").controller("CreateEventController", UserEvent);

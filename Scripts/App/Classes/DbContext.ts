@@ -102,7 +102,7 @@ class DbContext {
         }).then(function(response){
             if(response.data === ""){
                 alert('Successfully Created!');
-                //location.reload();
+                document.location.reload();
             } else if (response.data === "conflict") {
                 alert("There is a database conflict");
             }

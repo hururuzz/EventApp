@@ -1,0 +1,8 @@
+{
+  "_id" : "_design/user",
+  "views" : {
+    "GetUserList" : {
+      "map" : "function(doc){emit(doc._id, [doc._id, doc.email]);}"
+    }
+  }
+}

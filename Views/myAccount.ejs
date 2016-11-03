@@ -9,14 +9,20 @@
     var AppAccount = new AppAccount();
 </script>
 <div ng-controller="UserController" class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
-    <div ng-init="ViewUserEvents()">
+    <div ng-init="ViewUserHostedEvents()">
         <h3>Events You've Hosted</h3>
         <div ng-repeat="item in userEventList">
             <% include eventListForm %>
         </div>
     </div>
-    <div>
+
+    <hr>
+    
+    <div ng-init="ViewUserJoinedEvents()">
         <h3>Events You've Joined</h3>
+        <div ng-repeat="item in userEventList">
+            <% include eventListForm %>
+        </div>
     </div>
 </div>
 
@@ -29,17 +35,17 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Current Password</b></td>
-                <td><input type="password" class="input" ng-model="AppAccount.password"></td>
+                <td><input type="password" class="form-control" ng-model="AppAccount.password"></td>
                 <td ng-show="IsCurrentPasswordFailure">{{currentPasswordFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>New Password</b></td>
-                <td><input type="password" class="input" ng-model="AppAccount.newPassword"></td>
+                <td><input type="password" class="form-control" ng-model="AppAccount.newPassword"></td>
                 <td ng-show="IsPasswordFailure">{{passwordFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Confirm New Password</b></td>
-                <td><input type="password" class="input" ng-model="AppAccount.confirmPassword"></td>
+                <td><input type="password" class="form-control" ng-model="AppAccount.confirmPassword"></td>
                 <td ng-show="IsConfirmPasswordFailure">{{confirmPasswordFailureMessage}}</td>
             </tr>
         </table>

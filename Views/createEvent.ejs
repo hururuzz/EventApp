@@ -12,34 +12,53 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Event Name</b></td>
-                <td><input type="text" class="input" ng-model="UserEvent.eventName"></td>
+                <td><input type="text" class="form-control" ng-model="UserEvent.eventName"></td>
             </tr>
             <tr>
                 <td><b>Tag</b></td>
-                <td><input type="text" class="input" ng-model="UserEvent.tag"></td>
+                <td><input type="text" class="form-control" ng-model="UserEvent.tag"></td>
             </tr>
             <tr>
                 <td><b>Date</b></td>
-                <td><input type="text" class="input" ng-model="UserEvent.date"></td>
+                <td>
+                    <input type="text" class="form-control" uib-datepicker-popup is-open="isOpen" ng-model="date" datepicker-options="dateOptions" ng-required="true">
+                        <span class="input-group-btn text-right">
+                            <button type="button" class="btn btn-default" ng-click="OpenCalendar()">
+                                <i class="glyphicon glyphicon-calendar">
+                                </i>
+                            </button>
+                        </span>
+                </td>
             </tr>
             <tr>
                 <td><b>Time</b></td>
-                <td><input type="text" class="input" ng-model="UserEvent.time"></td>
+                <td>
+                    <div uib-timepicker ng-model="time" minute-step="1" show-meridian="true">
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td><b>Location</b></td>
-                <td><input type="text" class="input" ng-model="UserEvent.location"></td>
+                <td><input type="text" class="form-control" ng-model="UserEvent.location"></td>
             </tr>
             <tr>
                 <td><b>Invitees</b></td>
-                <td><input type="text" class="input" ng-model="UserEvent.invitees"></td>
+                <td>
+                    <input type="text" class="form-control" placeholder="Type invitee's User ID" uib-typeahead="userList for userList in GetUserList($viewValue)" typeahead-loading="loadingLists" typeahead-min-length="3" typeahead-wait-ms="1" typeahead-no-results="noResults" ng-model="invitee">
+                    <button class="btn" ng-click="AddInvitee(invitee)">+</button>
+                    <p></p>
+                    <textarea class="form-control" readonly>
+                        {{invitees}}
+                    </textarea>
+                </td>
             </tr>
+            
             <tr>
                 <td><b>Description</b></td>
-                <td><input type="text" class="input" ng-model="UserEvent.description"></td>
+                <td><input type="text" class="form-control" ng-model="UserEvent.description"></td>
             </tr>
         </table>
-        <input type="button" class="btn" value="Create Event" ng-click="c.CreateEvent(UserEvent.eventName, UserEvent.tag, UserEvent.date, UserEvent.time, UserEvent.location, UserEvent.invitees, UserEvent.description)">
-        <input type="button" class="btn" value="Cancel" ng-click="c.Cancel()">
+        <input type="button" class="btn" value="Create Event" ng-click="CreateEvent(UserEvent.eventName, UserEvent.tag, date, time, UserEvent.location, invitees, UserEvent.description)">
+        <input type="button" class="btn" value="Cancel" ng-click="Cancel()">
     </div>
 </div>

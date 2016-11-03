@@ -1,8 +1,17 @@
 {
   "_id" : "_design/event",
   "views" : {
-    "getAllEvents" : {
-      "map" : "function(doc){emit(doc._id, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitee, doc.description, doc.eventHost, doc.isActive]);}"
+    "GetAllEvents" : {
+      "map" : "function(doc){emit(doc.isActive, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+    },
+    "GetEventsByHost": {
+      "map": "function(doc){emit(doc.eventHost, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+    },
+    "GetEventsByGuest": {
+      "map": "function(doc){emit(doc.invitees, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+    },
+    "GetEventsBySearchKeyword": {
+      "map": "function(doc){emit(doc.eventName, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
     }
   }
 }

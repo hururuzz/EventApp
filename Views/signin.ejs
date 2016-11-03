@@ -14,12 +14,12 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Username</b></td>
-                <td><input type="text" class="input" ng-model="AppAccount.username"></td>
+                <td><input type="text" class="form-control" ng-model="AppAccount.username"></td>
                 <td ng-show="IsUserNameFailure">{{userNameFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Password</b></td>
-                <td><input type="password" class="input" ng-model="AppAccount.password"></td>
+                <td><input type="password" class="form-control" ng-model="AppAccount.password"></td>
                 <td ng-show="IsPasswordFailure">{{passwordFailureMessage}}</td>
             </tr>
         </table>

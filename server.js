@@ -29,6 +29,7 @@ var dbUrl = "http://localhost:5984/";
 app.use("/scripts", express.static("scripts", {index: false}));
 app.use("/CSS", express.static("CSS", {index: false}));
 app.use("/Models", express.static("Models", {index: false}));
+app.use("/fonts", express.static("fonts", {index: false}));
 
 app.set("view engine", "ejs");
 app.set("Views", __dirname + "/Views");
@@ -228,6 +229,7 @@ app.post("/CreateEvent", function(req, res) {
 
 app.post('/HostedEvent', function(req,res){
     var username = req.body.username;
+    var viewName = req.body.viewName;
     var table = 'event';
 
     /*
@@ -240,11 +242,53 @@ app.post('/HostedEvent', function(req,res){
     }
     */
 
-    var searchKeyword = (typeof searchKeyword === undefined) ? '' : '"?key="' + searchKeyword + '"';
+    //var searchKeyword = (typeof searchKeyword === undefined) ? '' : '"?key="' + searchKeyword + '"';
 
     request({
         method: 'GET',
-        url: [dbUrl, table, '_design', 'event', '_view', 'getAllEvents'].join('/'),
+        url: [dbUrl, table, '_design', 'event', '_view', viewName + '?key="' + username + '"'].join('/'),
+        json: true
+    },function(error, response, body){
+      if (error){
+        console.log(error);
+      } else if (body.error){
+        console.log(body.error);
+      } else {
+        console.log(body.rows);
+        res.send(body.rows).end();
+      }
+    });
+});
+
+app.post('/JoinedEvent', function(req,res){
+    var username = req.body.username;
+    var viewName = req.body.viewName;
+    var table = 'event';
+
+    request({
+        method: 'GET',
+        url: [dbUrl, table, '_design', 'event', '_view', viewName + '?startkey="/' + username + '"&endkey="' + username + '/"'].join('/'),
+        json: true
+    },function(error, response, body){
+      if (error){
+        console.log(error);
+      } else if (body.error){
+        console.log(body.error);
+      } else {
+        console.log(body.rows);
+        res.send(body.rows).end();
+      }
+    });
+});
+
+app.post('/UserList', function(req,res){
+    var username = req.body.username;
+    var viewName = req.body.viewName;
+    var table = 'user';
+
+    request({
+        method: 'GET',
+        url: [dbUrl, table, '_design', 'user', '_view', viewName + '?startkey="/' + username + '"&endkey="' + username + '/"'].join('/'),
         json: true
     },function(error, response, body){
       if (error){
