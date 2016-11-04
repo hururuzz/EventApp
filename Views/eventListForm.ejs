@@ -4,13 +4,13 @@
         <td colspan="2">
             <h4>{{item.value[1]}}</h4>
             <button class="btn-xs" id="quitEventButtonValue"></button>
-            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{item.value[1]}}&dates={{item.value[3]}}/{{item.value[3]}}&details={{item.value[6]}}&location={{item.value[4]}}&sf=true&output=xml" target="_blank"><button class="btn-xs">Add to calendar</button></a>
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{item.value[1]}}&dates={{item.value[3] | date: 'yyyyMMddTHHmmss'}}/{{item.value[3] | date: 'yyyyMMddTHHmmss'}}&details={{item.value[6]}}&location={{item.value[4]}}&sf=true&output=xml" target="_blank"><button class="btn-xs">Add to calendar</button></a>
             <!-- time format must be yyyymmddThhmmssZ/yyyymmddThhmmssZ (from/to) -->
         </td>
     </tr>
     <tr>
         <td><b>Date/Time</b></td>
-        <td>{{item.value[3]}}</td>
+        <td>{{item.value[3] | date: 'MM/dd/yyyy h:mma'}}</td>
     </tr>
     <tr>
         <td><b>Location</b></td>
@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td><b>Event Host</b></td>
-        <td>{{item.value[7]}}</td>
+        <td id="eventHostNameText">{{item.value[7]}}</td>
     </tr>
     <tr>
         <td><b>Participants</b></td>

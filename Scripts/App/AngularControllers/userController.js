@@ -15,14 +15,14 @@ app.controller('UserController', function($scope, $http, angularService){
                 viewName: 'GetEventsByHost'
             }
         }).then(function(response){
-            $scope.userEventList = response.data;
-            console.log($scope.userEventList);
+            $scope.userHostedEventList = response.data;
+            //console.log($scope.userHostedEventList);
         }, function(error){
             console.log(error);
         });
     }
 
-    $scope.ViewUserHostedEvents = function(){
+    $scope.ViewUserJoinedEvents = function(){
         $http({
             method: 'POST',
             url: '/JoinedEvent',
@@ -34,8 +34,8 @@ app.controller('UserController', function($scope, $http, angularService){
                 viewName: 'GetEventsByGuest'
             }
         }).then(function(response){
-            $scope.userEventList = response.data;
-            console.log($scope.userEventList);
+            $scope.userJoinedEventList = response.data;
+            //console.log($scope.userJoinedEventList);
         }, function(error){
             console.log(error);
         });

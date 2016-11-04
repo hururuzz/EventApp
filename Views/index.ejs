@@ -7,80 +7,42 @@
             <input type="text" ng-model="searchKeyword" class="form-control" placeholder="Type keywords here" autofocus>
         </div>
         <div class="text-right">
-                <button class="btn">Search</button>
+                <button class="btn" ng-click="SearchEvents()">Search</button>
                 <a href="/createevent"><button class="btn">+</button></a>
         </div>
     </p>
 
     <hr>
 
-    <div>
+    <div ng-show="eventSearched">
         <h3>Events Searched</h3>
-        <table class="table table-striped">
-            <tr>
-                <td colspan="2">
-                    <h4>Beer Party at CSUF!!</h4>
-                    <button class="btn-xs">Join</button>
-                </td>
-            </tr>
-            <tr>
-                <td><b>Date/Time</b></td>
-                <td>10/31/2016 6:00PM</td>
-            </tr>
-            <tr>
-                <td><b>Location</b></td>
-                <td>Irish Pub
-                    <button class="btn-xs">Map</button>
-                </td>
-            </tr>
-            <tr>
-                <td><b>Description</b></td>
-                <td>Come and enjoy!</td>
-            </tr>
-            <tr>
-                <td><b>Event Host</b></td>
-                <td>Peter</td>
-            </tr>
-            <tr>
-                <td><b>Participants</b></td>
-                <td>12</td>
-            </tr>
-        </table>
-    </div>
+        <div ng-repeat="item in searchedEventList">
+            <% include eventListForm %>
+        </div>
+        <div ng-show="noSearchResult" ng-hide="eventsSearched">
+            <h4 class="h5 text-center">No Events Found</h4>
+        </div>
     <hr>
+    </div>
+
     <div>
         <h3>Recommended Events</h3>
-        <table class="table table-striped">
-            <tr>
-                <td colspan="2">
-                    <h4>Soccer Game at CSUF soccer field</h4>
-                    <button class="btn-xs">Join</button>
-                </td>
-            </tr>
-            <tr>
-                <td><b>Date/Time</b></td>
-                <td>8/31/2016 7:00PM</td>
-            </tr>
-            <tr>
-                <td><b>Location</b></td>
-                <td>CSUF soccer Field
-                    <button class="btn-xs">Map</button>
-                </td>
-            </tr>
-            <tr>
-                <td><b>Description</b></td>
-                <td>Come and enjoy playing soccer!</td>
-            </tr>
-            <tr>
-                <td><b>Event Host</b></td>
-                <td>James</td>
-            </tr>
-            <tr>
-                <td><b>Participants</b></td>
-                <td>7</td>
-            </tr>
-        </table>
+        
     </div>
     <hr>
 </div>
+
+<script>
+    var eventHost = document.getElementById('eventHostNameText').innerHTML;
+    var loggedInUser = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    
+    console.log(eventHost);
+    console.log(loggedInUser);
+
+    if (eventHost === loggedInUser) {
+        document.getElementById('quitEventButtonValue').innerHTML = '';
+    } else {
+        document.getElementById('quitEventButtonValue').innerHTML = 'Join';
+    }
+</script>
 

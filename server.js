@@ -35,7 +35,7 @@ app.set("view engine", "ejs");
 app.set("Views", __dirname + "/Views");
 
 app.get("/", function (req, res) {
-  res.render("index.ejs", {layout: "layout.ejs"});
+  res.render("index.ejs", {layout: "layout.ejs", eventListForm: "eventListForm.ejs"});
 });
 
 app.get("/signin", function (req, res) {
@@ -267,7 +267,7 @@ app.post('/JoinedEvent', function(req,res){
 
     request({
         method: 'GET',
-        url: [dbUrl, table, '_design', 'event', '_view', viewName + '?startkey="/' + username + '"&endkey="' + username + '/"'].join('/'),
+        url: [dbUrl, table, '_design', 'event', '_view', viewName + '?startkey="' + username + '"&endkey="' + username + 'ZZZZZ"'].join('/'),
         json: true
     },function(error, response, body){
       if (error){
@@ -288,7 +288,28 @@ app.post('/UserList', function(req,res){
 
     request({
         method: 'GET',
-        url: [dbUrl, table, '_design', 'user', '_view', viewName + '?startkey="/' + username + '"&endkey="' + username + '/"'].join('/'),
+        url: [dbUrl, table, '_design', 'user', '_view', viewName + '?startkey="' + username + '"&endkey="' + username + 'ZZZZZ"'].join('/'),
+        json: true
+    },function(error, response, body){
+      if (error){
+        console.log(error);
+      } else if (body.error){
+        console.log(body.error);
+      } else {
+        console.log(body.rows);
+        res.send(body.rows).end();
+      }
+    });
+});
+
+app.post('/EventSearchList', function(req,res){
+    var keyword = req.body.keyword;
+    var viewName = req.body.viewName;
+    var table = 'event';
+
+    request({
+        method: 'GET',
+        url: [dbUrl, table, '_design', 'event', '_view', viewName + '?startkey="' + keyword + '"&endkey="' + keyword + 'ZZZZZ"'].join('/'),
         json: true
     },function(error, response, body){
       if (error){

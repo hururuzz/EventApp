@@ -10,8 +10,11 @@
     "GetEventsByGuest": {
       "map": "function(doc){emit(doc.invitees, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
     },
-    "GetEventsBySearchKeyword": {
+    "GetEventsByEventName": {
       "map": "function(doc){emit(doc.eventName, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+    },
+    "GetEventsByTag" : {
+      "map" : "function(doc){emit(doc.tag, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
     }
   }
 }

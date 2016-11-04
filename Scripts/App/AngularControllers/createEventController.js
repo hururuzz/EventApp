@@ -1,4 +1,5 @@
 /// <reference path="../Classes/DbContext.ts" />
+/// <reference path="../Classes/DateTimeConverter.ts" />
 
 app.controller('CreateEventController', function($scope, $http, angularService){
     //console.log('This is CreateEventController');
@@ -45,9 +46,14 @@ app.controller('CreateEventController', function($scope, $http, angularService){
     }
 
     $scope.CreateEvent = function(eventName, tag, date, time, location, invitees, description){
+        var dt = new DateTimeConverter($scope);
+        
+        var date = dt.ConvertJSDateToDateFormart($scope.date);
+        var time = dt.ConvertJSDateToTimeFormat($scope.time);
+
         this.eventName = eventName;
         this.tag = tag;
-        this.date = date + time;
+        this.date = dt.CombineConvertedDateAndTimeToMsFormat(date, time);
         this.location = location;
         this.invitees = invitees;
         this.description = description;
