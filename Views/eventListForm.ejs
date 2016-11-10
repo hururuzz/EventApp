@@ -1,34 +1,37 @@
-<input hidden="hidden" value="{{item.value[0]}}">
+<input hidden="hidden" id="eventId" value="{{item.value[0]}}">
 <table class="table table-striped">
     <tr>
         <td colspan="2">
-            <h4>{{item.value[1]}}</h4>
-            <button class="btn-xs" id="quitEventButtonValue"></button>
+            <h4 ng-model="eventName">{{item.value[1]}}</h4>
+            <button class="btn-xs" id="quitEventButtonValue" ng-click="ActOnEvent()"></button>
             <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{item.value[1]}}&dates={{item.value[3] | date: 'yyyyMMddTHHmmss'}}/{{item.value[3] | date: 'yyyyMMddTHHmmss'}}&details={{item.value[6]}}&location={{item.value[4]}}&sf=true&output=xml" target="_blank"><button class="btn-xs">Add to calendar</button></a>
-            <!-- time format must be yyyymmddThhmmssZ/yyyymmddThhmmssZ (from/to) -->
         </td>
     </tr>
     <tr>
         <td><b>Date/Time</b></td>
-        <td>{{item.value[3] | date: 'MM/dd/yyyy h:mma'}}</td>
+        <td><span ng-model="eventDate">{{item.value[3] | date: 'MM/dd/yyyy h:mma'}}</span></td>
     </tr>
     <tr>
         <td><b>Location</b></td>
         <td>
-            {{item.value[4]}}
+            <span ng-model="location">{{item.value[4]}}</span>
             <a ng-href="https://www.google.com/maps/place/{{item.value[4]}}" target="_blank"><button class="btn-xs">Map</button></a>
         </td>
     </tr>
     <tr>
         <td><b>Description</b></td>
-        <td>{{item.value[6]}}</td>
+        <td><span ng-model="description">{{item.value[6]}}</span></td>
+    </tr>
+    <tr>
+        <td><b>Tag</b></td>
+        <td><span ng-model="tag">{{item.value[2]}}</tag></td>
     </tr>
     <tr>
         <td><b>Event Host</b></td>
-        <td id="eventHostNameText">{{item.value[7]}}</td>
+        <td><span ng-model="eventHost" id="eventHostNameText">{{item.value[7]}}</span></td>
     </tr>
     <tr>
         <td><b>Participants</b></td>
-        <td>{{item.value[5]}}</td>
+        <td><span ng-model="invitees">{{item.value[5]}}</span></td>
     </tr>
 </table>

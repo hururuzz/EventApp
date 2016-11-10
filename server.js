@@ -323,6 +323,63 @@ app.post('/EventSearchList', function(req,res){
     });
 });
 
+app.post('/ValidateUserInEvent', function(req,res){
+      var eventId = req.body.eventId;
+      var table = 'event';
+
+      request({
+        url: [dbUrl, table, eventId].join('/'),
+        header: "Content-Type: application-json",
+        json: true
+      }, function(error, response, body){
+        if (error){
+          console.log(error);
+        } else if (body.error){
+          console.log(body.error);
+          res.send(body.error).end();
+        } else {
+          console.log(body);
+          res.send(body.eventHost).end();
+        }
+      });
+});
+
+app.post('/UpdateEvent', function(req,res){
+    var table = 'event';
+    var eventId = req.body.eventId;
+    var eventName = req.body.eventName;
+    var date = req.body.date;
+    var description = req.body.description;
+    var eventHost = req.body.eventHost;
+    var invitees = req.body.invitees;
+    var isActive = req.body.isActive;
+    var location = req.body.islocation;
+    var tag = req.body.tag;
+
+    couchDbContext.getData(dbUrl, table, eventId, function(error, response, body){
+        callback(response.body);
+    });
+
+    function callback(response){
+        couchDbContext.saveData(dbUrl, table, eventId, {
+          _id: response._id,
+          _rev: response._rev,
+          date: date,
+          description: description,
+          eventHost: eventHost,
+          eventName: eventName,
+          invitees: invitees,
+          isActive: isActive,
+          location: location,
+          tag: tag
+        }, function(response){
+          console.log(response);
+        });
+      }
+
+    res.send(true).end();
+});
+
 app.listen(8000, function(){
     console.log("The server is listening port 8000");
 });
