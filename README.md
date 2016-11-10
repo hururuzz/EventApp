@@ -6,7 +6,14 @@ Event App project for CPSC542
 POSTMAN: 
     PUT, http://localhost:5984/event/_design/event, Body->binary->choose 'event.json file in InitialSetup folder. <br>
     PUT, http://localhost:5984/user/_design/user, Body->binary->choose 'user.json file in InitialSetup folder. <br>
+<br>
 
 curl: 
     curl -X PUT http://localhost:5984/event/_design/event --data-binary @event.json <br>
     curl -X PUT http://localhost:5984/user/_design/user --data-binary @user.json <br>
+
+
+# Things to implement
+- Recommended Events (by close zipcode).
+- Drop/leave an event.
+- Email notification for creating, dropping, leaving events
