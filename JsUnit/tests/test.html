@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+
+  <script type="text/javascript" src="..\app\jsUnitCore.js"></script>
+
+  <script type="text/javascript" src="test1.js"></script>
+
+  <script type="text/javascript">
+
+  var count = 0;
+
+  // 此函数只执行一次（在页面加载后），类似于JUnit 4.x中的@BeforeClass
+  // 注意：并没有与@AfterClass对应的函数存在
+  function setUpPage()
+  {
+    alert('setUpPage Invoked');
+
+    // 这行代码必须放在setUpPage函数的最后一行
+    // 告诉JsUnit，setUpPage函数已经执行完毕
+    
+    setUpPageStatus = "complete"; 
+  }
+
+
+  // setUp run before every test function
+  function setUp()
+  {
+    //alert(count++);    //JUnit若这样执行,count全是0,因为每一个测试方法都会生成新的测试对象;
+                        //JsUnit会递增count, 因为都是在同一个页面里去执行,所以会基于原有的值
+    
+    //设定初始条件
+    document.getElementById("value1").value = 2;
+    document.getElementById("value2").value = 3;
+  }
+
+  // tearDown run after every test function
+  function tearDown()
+  {
+    //alert("tearDown");
+
+    //清理状态
+    document.getElementById("value1").value = "";
+    document.getElementById("value2").value = "";
+    document.getElementById("value3").value = "";
+  }
+
+  // 以下为测试函数（Test Function）
+  
+  function testAdd()
+  {
+    var result = add(1, 2);
+
+    assertEquals(3, result);
+  }
+
+  function testSubtract()
+  {
+    var result = subtract(1, 2);
+
+    assertEquals(-1, result);
+  }
+
+  function testMultiply()
+  {
+    var result = multiply(1, 2);
+
+    assertEquals(2,result);
+  }
+
+  function testAddNumbers()
+  {
+    addNumbers();
+
+    assertEquals("5", document.getElementById("value3").value);
+  }
+
+  </script>
+
+ </head>
+ <body>
+  
+  <input type="text" id="value1"><br>
+  <input type="text" id="value2"><br>
+  <input type="text" id="value3"><br>
+
+  <input type="button" value="Add" onclick="addNumbers();">
+
+ </body>
+</html>
