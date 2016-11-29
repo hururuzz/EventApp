@@ -32,13 +32,44 @@ app.controller('HomeController', function($scope, $http, angularService){
         });
     }
 
-    $scope.ActOnEvent = function(){
+    $scope.ActOnEvent = function(rev_id, eventId, invitees, eventDate, description, eventHost, eventName, location, tag){
         var loggedInUsername = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-        var eventId = document.getElementById('eventId').value;
+        var eventId = eventId;
+        var rev_id = rev_id;
+        var invitees = invitees;
+        var eventDate = eventDate;
+        var description = description;
+        var eventHost = eventHost;
+        var eventName = eventName;
+        var location = location;
+        var tag = tag;
+
+        console.log(invitees);
+
+        function isTheUserHost (name){
+            return name === loggedInUsername;
+        }
+
+        //console.log(invitees.find(isTheUserHost));
+
+        //console.log(eventId);
+        ///console.log(rev_id);
+        //console.log(invitees);
+        //console.log(location);
+
+        //var invitess = document.getElementById('invitees').value;
+        //console.log(invitees + ', ' + loggedInUsername + ', ');
 
         if($scope.username === ''){
             document.location.href='/SignIn';
+        } else if (invitees.find(isTheUserHost)){
+            alert('You have joined this event.');
+        } else if (loggedInUsername === eventHost) {
+            alert('You have hosted this event.');
         } else {
+            invitees.push(loggedInUsername);
+            console.log(invitees);
+
             $http({
                 method: 'POST',
                 url: '/ValidateUserInEvent',
@@ -49,9 +80,6 @@ app.controller('HomeController', function($scope, $http, angularService){
                     eventId: eventId
                 }
             }).then(function(response){
-                if (loggedInUsername === response.data){
-                    alert('You have hosted this event.');
-                } else {
                     $http({
                         method: 'POST',
                         url: '/UpdateEvent',
@@ -59,27 +87,24 @@ app.controller('HomeController', function($scope, $http, angularService){
                             'Content-Type': 'application/json'
                         },
                         data: {
-                            eventId: $scope.eventId,
-                            date: $scope.eventDate,
-                            description: $scope.description,
-                            eventHost: $scope.eventHost,
-                            eventName: $scope.eventName,
-                            invitees: $scope.invitees + ', ' + loggedInUsername + ', ',
+                            eventId: eventId,
+                            date: eventDate,
+                            description: description,
+                            eventHost: eventHost,
+                            eventName: eventName,
+                            invitees: invitees,
                             isActive: 'y',
-                            location: $scope.location,
-                            tag: $scope.tag
+                            location: location,
+                            tag: tag
                         }
                     }).then(function(response){
                         alert('You have been successfully joined this event!');
                     }, function(error){
                         alert('Error on the system');
                     });
-                }
             }, function(error){
                 alert('Error on the system');
             });
-
-
         }
     }
 });

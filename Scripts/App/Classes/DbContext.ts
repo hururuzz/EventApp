@@ -24,6 +24,8 @@ class DbContext {
                 location.reload();
             } else if (response.data === "conflict") {
                 alert("The username is already taken.");
+            } else {
+                alert("Database error: " + response.data);
             }
         }, function(error){
             alert(error);

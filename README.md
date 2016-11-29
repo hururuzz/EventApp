@@ -14,6 +14,7 @@ curl:
 
 
 # Things to implement
-- Recommended Events (by close zipcode).
 - Drop/leave an event.
 - Email notification for creating, dropping, leaving events
+
+- conlict message on Sign up if the account exists

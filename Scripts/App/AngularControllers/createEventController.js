@@ -8,6 +8,7 @@ app.controller('CreateEventController', function($scope, $http, angularService){
     $scope.date = currentDateTime;
     $scope.time = currentDateTime;
     $scope.invitees = '';
+    var inviteeList = [];
 
     $scope.OpenCalendar = function(){
         $scope.isOpen = true;
@@ -33,7 +34,7 @@ app.controller('CreateEventController', function($scope, $http, angularService){
         }).then(function(response){
             return response.data.map(function(item){
                 //return "Username: " + item.value[0] + ", Email: " + item.value[1];
-                return item.value[1];
+                return item.value[0];
             });
         }, function(error){
             console.log(error);
@@ -41,8 +42,16 @@ app.controller('CreateEventController', function($scope, $http, angularService){
     }
 
     $scope.AddInvitee = function(invitee){
-        $scope.invitees += (invitee + ', ');
-        $scope.invitee = '';
+        function isInviteeInTheList (name){
+            return name === invitee;
+        }
+
+        if(!inviteeList.find(isInviteeInTheList)){
+            inviteeList.push(invitee);
+            $scope.invitee = '';
+        }
+
+        $scope.invitees = inviteeList;
     }
 
     $scope.CreateEvent = function(eventName, tag, date, time, location, invitees, description){

@@ -1,10 +1,20 @@
 <input hidden="hidden" id="eventId" value="{{item.value[0]}}">
+<input hidden="hidden" id="rev_id" value="{{item.value[8]}}">
+<input hidden="hidden" id="invitees" value="{{item.value[5]}}">
+<input hidden="hidden" id="eventDate" value="{{item.value[3]}}">
+<input hidden="hidden" id="description" value="{{item.value[6]}}">
+<input hidden="hidden" id="eventHost" value="{{item.value[7]}}">
+<input hidden="hidden" id="eventName" value="{{item.value[1]}}">
+<input hidden="hidden" id="location" value="{{item.value[4]}}">
+<input hidden="hidden" id="tag" value="{{item.value[2]}}">
+
 <table class="table table-striped">
     <tr>
         <td colspan="2">
             <h4 ng-model="eventName">{{item.value[1]}}</h4>
-            <button class="btn-xs" id="quitEventButtonValue" ng-click="ActOnEvent()"></button>
-            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{item.value[1]}}&dates={{item.value[3] | date: 'yyyyMMddTHHmmss'}}/{{item.value[3] | date: 'yyyyMMddTHHmmss'}}&details={{item.value[6]}}&location={{item.value[4]}}&sf=true&output=xml" target="_blank"><button class="btn-xs">Add to calendar</button></a>
+            <button class="btn-xs" id="quitEventButtonValue" ng-click="ActOnEvent(item.value[8], item.value[0], item.value[5], item.value[3], item.value[6], item.value[7], item.value[1], item.value[4], item.value[2])">Drop/Leave</button>
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{item.value[1]}}&dates={{item.value[3] | date: 'yyyyMMddTHHmmss'}}/{{item.value[3] | date: 'yyyyMMddTHHmmss'}}&details={{item.value[6]}}&location={{item.value[4]}}&sf=true&output=xml" target="_blank">
+            <button class="btn-xs">Add to calendar</button></a>
         </td>
     </tr>
     <tr>
@@ -32,6 +42,6 @@
     </tr>
     <tr>
         <td><b>Participants</b></td>
-        <td><span ng-model="invitees">{{item.value[5]}}</span></td>
+        <td><span ng-model="invitees" id="invitees">{{item.value[5]}}</span></td>
     </tr>
 </table>

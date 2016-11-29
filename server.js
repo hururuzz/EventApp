@@ -267,7 +267,8 @@ app.post('/JoinedEvent', function(req,res){
 
     request({
         method: 'GET',
-        url: [dbUrl, table, '_design', 'event', '_view', viewName + '?startkey="' + username + '"&endkey="' + username + 'ZZZZZ"'].join('/'),
+        //url: [dbUrl, table, '_design', 'event', '_view', viewName + '?startkey="' + username + '"&endkey="' + username + 'ZZZZZ"'].join('/'),
+        url: [dbUrl, table, '_design', 'event', '_view', viewName + '?startkey=["' + username + '"]&endkey={}'].join('/'),
         json: true
     },function(error, response, body){
       if (error){
@@ -353,8 +354,10 @@ app.post('/UpdateEvent', function(req,res){
     var eventHost = req.body.eventHost;
     var invitees = req.body.invitees;
     var isActive = req.body.isActive;
-    var location = req.body.islocation;
+    var location = req.body.location;
     var tag = req.body.tag;
+
+    console.log(invitees);
 
     couchDbContext.getData(dbUrl, table, eventId, function(error, response, body){
         callback(response.body);
@@ -373,11 +376,34 @@ app.post('/UpdateEvent', function(req,res){
           location: location,
           tag: tag
         }, function(response){
-          console.log(response);
+          //console.log(response);
         });
       }
 
     res.send(true).end();
+});
+
+app.post('/DeleteEvent', function(req, res){
+    var rev_id = req.body.rev_id;
+    var eventId = req.body.eventId;
+    var table = 'event';
+
+    request({
+        method: 'DELETE',
+        url: [dbUrl, table, eventId + '?rev=' + rev_id].join('/'),
+        json: true
+    },function(error, response, body){
+      if (error){
+        console.log(error);
+        res.send(error).end();
+      } else if (body.error){
+        console.log(body.error);
+        res.send(body.error).end();
+      } else {
+        console.log(body);
+        res.send(body).end();
+      }
+    });
 });
 
 app.listen(8000, function(){

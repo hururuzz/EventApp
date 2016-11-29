@@ -2,19 +2,19 @@
   "_id" : "_design/event",
   "views" : {
     "GetAllEvents" : {
-      "map" : "function(doc){emit(doc.isActive, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+      "map" : "function(doc){emit(doc.isActive, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc._rev, doc.isActive]);}"
     },
     "GetEventsByHost": {
-      "map": "function(doc){emit(doc.eventHost, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+      "map": "function(doc){emit(doc.eventHost, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc._rev, doc.isActive]);}"
     },
     "GetEventsByGuest": {
-      "map": "function(doc){emit(doc.invitees, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+      "map": "function(doc){emit(doc.invitees, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc._rev, doc.isActive]);}"
     },
     "GetEventsByEventName": {
-      "map": "function(doc){emit(doc.eventName, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+      "map": "function(doc){emit(doc.eventName, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc._rev, doc.isActive]);}"
     },
     "GetEventsByTag" : {
-      "map" : "function(doc){emit(doc.tag, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc.isActive]);}"
+      "map" : "function(doc){emit(doc.tag, [doc._id, doc.eventName, doc.tag, doc.date, doc.location, doc.invitees, doc.description, doc.eventHost, doc._rev, doc.isActive]);}"
     }
   }
 }
