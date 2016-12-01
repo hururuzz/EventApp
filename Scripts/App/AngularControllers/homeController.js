@@ -45,6 +45,9 @@ app.controller('HomeController', function($scope, $http, angularService){
         var tag = tag;
 
         console.log(invitees);
+        if (invitees === undefined || invitees === ''){
+            var invitees = [];
+        }
 
         function isTheUserHost (name){
             return name === loggedInUsername;
