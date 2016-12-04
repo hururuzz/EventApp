@@ -24,8 +24,10 @@ app.controller('HomeController', function($scope, $http, angularService){
             
             if ($scope.searchedEventList.length === 0){
                 $scope.noSearchResult = true;
+                $scope.eventsSearched = false;
             } else {
                 $scope.eventsSearched = true;
+                $scope.noSearchResult = false;
             }
         }, function(error){
             console.log(error);

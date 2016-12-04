@@ -13,7 +13,8 @@
         <table class="table table-striped">
             <tr>
                 <td><b>Event Name</b></td>
-                <td><input type="text" class="form-control" ng-model="UserEvent.eventName"></td>
+                <td><input type="text" class="form-control" ng-model="eventName"></td>
+                <td ng-show="IsEventNameFailure">{{eventNameFailureMessage}}</td>
             </tr>
             <tr>
                 <td><b>Tag</b></td>

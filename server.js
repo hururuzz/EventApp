@@ -174,7 +174,6 @@ app.post("/ChangePassword", function(req, res){
     function callback(response){
       //console.log(response);
       if (response.password !== md5(password)){
-        alert('Password is incorrect');
         res.send(false).end();
       } else {
         couchDbContext.saveData(dbUrl, table, id, {
@@ -183,11 +182,11 @@ app.post("/ChangePassword", function(req, res){
           password: md5(newPassword)
         }, function(response){
           console.log(response);
-        })
+        });
+
+        res.send(true).end();
       }
     }
-
-    res.send(true).end();
 
 });
 

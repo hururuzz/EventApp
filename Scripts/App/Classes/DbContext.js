@@ -139,9 +139,14 @@ var DbContext = (function () {
                 newPassword: newPassword
             }
         }).then(function (response) {
-            //console.log(response.data);
-            alert('The password has been successfully changed.');
-            window.location.href = '/SignIn';
+            console.log(response.data);
+            if (response.data === false) {
+                alert('The old password is not correct.');
+            }
+            else {
+                alert('The password has been successfully changed.');
+                window.location.href = '/SignIn';
+            }
         }, function (error) {
             console.log(error);
         });
