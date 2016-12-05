@@ -69,7 +69,7 @@ app.controller('CreateEventController', function($scope, $http, angularService){
             var date = dt.ConvertJSDateToDateFormart($scope.date);
             var time = dt.ConvertJSDateToTimeFormat($scope.time);
 
-            this.eventName = eventName;
+            this.eventName = $scope.eventName;
             this.tag = tag;
             this.date = dt.CombineConvertedDateAndTimeToMsFormat(date, time);
             this.location = location;
