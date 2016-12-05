@@ -65,7 +65,7 @@ app.controller('HomeController', function($scope, $http, angularService){
         //var invitess = document.getElementById('invitees').value;
         //console.log(invitees + ', ' + loggedInUsername + ', ');
 
-        if($scope.username === ''){
+        if(loggedInUsername === ''){
             document.location.href='/SignIn';
         } else if (invitees.find(isTheUserHost)){
             alert('You have joined this event.');
